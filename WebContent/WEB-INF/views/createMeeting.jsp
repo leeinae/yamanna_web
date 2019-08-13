@@ -23,7 +23,7 @@
 			var busNo = $('#busNo').val();
 			var xhr = new XMLHttpRequest();
 			alert(xhr);
-			var url = "https://api.odsay.com/v1/api/searchBusLane?apiKey=ohO488CvUmCEUaxjQ9eaKqHZ3TXyT7LJZbQt/2qM2Lw&busNo=" + busNo;
+			var url = "https://api.odsay.com/v1/api/searchBusLane?apiKey=키값&busNo=" + busNo;
 			xhr.open("GET", url, true);
 			alert("호출 후 ");
 			xhr.send();
