@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.yamanna.dao.MemberDAO">
+
+	<!-- 회원가입 -->
+	<insert id="insertUserInfo" parameterType="memberVO">
+		insert into
+		user_info(uno, id, pw, email, nickname, xpos, ypos)
+		values(user_uno_seq.nextVal, #{id}, #{pw}, #{email}, #{nickname}, #{xpos}, #{ypos})
+	</insert>
+
+	<select id="loginCheck" resultType="String" parameterType="memberVO">
+		select nickname
+		from user_info 
+		where id=#{id} and pw=#{pw}
+	</select>
+
+	<select id="viewMember" resultType="memberVO" parameterType="memberVO">
+		select uno, id, email, nickname, xpos, ypos 
+		from user_info
+		where id=#{id} and pw=#{pw}
+	</select>
+	
+	<select id="viewMemberList" resultType="memberVO" parameterType="int">
+		select uno, id, email, nickname, xpos, ypos 
+		from user_info 
+		where uno in (select fno from user_relation where uno =#{uno})
+	</select>
+	
+	<select id="selectMemberId" resultType="memberVO" parameterType="String">
+		select uno, id, email, nickname, xpos, ypos from user_info where id = #{id}
+	</select>
+</mapper>
