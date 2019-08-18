@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.yamanna.dao.MeetingDAO">
+	<insert id="insertMeetingInfo" parameterType="MeetingVO">
+		insert into meeting(mid, mno, xpos, ypos, mdate) values(#{mid}, meeting_mno_seq.nextVal, #{xpos}, #{ypos}, #{mdate})
+	</insert>
+	
+	<select id="selectMeetingNo" resultType="int">
+		select mno from meeting where mid = #{mid}
+	</select>
+	
+	<insert id="insertMeetingMember" parameterType="Map">
+		insert into meeting_relation(mno, uno) values(#{mno}, #{uno})
+	</insert>
+</mapper>

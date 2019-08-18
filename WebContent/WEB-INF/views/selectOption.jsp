@@ -7,11 +7,12 @@
 <meta charset="UTF-8">
 <title></title>
 <script src="//code.jquery.com/jquery-3.4.1.min.js"></script>
-
 </head>
 <body>
-	<h3>친구 선택</h3>
 	<form id="fridenForm" action="${pageContext.request.contextPath }/createMeeting" method="post">
+		<h3>날짜 선택</h3>
+		<input type="date" id="date" name="date"><br>
+		<h3>친구 선택</h3>
 		<c:forEach items="${requestScope.list }" var="user">
 			<input type="checkbox" name="friend" value="${user.id }">id : ${user.id }, nickname : ${user.nickname }</><br>
 		</c:forEach>
