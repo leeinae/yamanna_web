@@ -35,8 +35,6 @@
 		pw : <input type="text" name="pw" id="pw"><br>
 		<button type="button" id="LoginBtn">로그인</button>	
 	</form>
-	<c:if test="{msg =='logout'}">
-		<h5 style="color : red">로그아웃되었습니다.</h5>
-	</c:if>
+	<a href="${pageContext.request.contextPath }/signup"><button>회원가입</button></a>
 </body>
 </html>

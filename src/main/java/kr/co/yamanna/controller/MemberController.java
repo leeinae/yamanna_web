@@ -1,5 +1,7 @@
 package kr.co.yamanna.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +11,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import kr.co.yamanna.service.MeetingService;
 import kr.co.yamanna.service.MemberService;
+import kr.co.yamanna.vo.MeetingVO;
 import kr.co.yamanna.vo.MemberVO;
 
 @Controller
@@ -17,6 +21,9 @@ public class MemberController {
 	
 	@Autowired
 	private MemberService service;
+	
+	@Autowired
+	private MeetingService meetingService;
 	
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String login() {
@@ -30,9 +37,13 @@ public class MemberController {
 		boolean result = service.loginCheck(vo, session);
 		ModelAndView mav = new ModelAndView();
 		if(result == true) {
-			System.out.println("success");
-			mav.setViewName("index");
+			int uno = (int) session.getAttribute("userNo");
+			
+			List<MeetingVO> meetingList = meetingService.selectMeetingList(uno);
+			
+			mav.setViewName("main");
 			mav.addObject("msg","success");
+			mav.addObject("meetingList",meetingList);
 		} else {
 			System.out.println("fail");
 			mav.setViewName("login");

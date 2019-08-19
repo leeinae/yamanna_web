@@ -1,5 +1,6 @@
 package kr.co.yamanna.service;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,12 @@ public class MeetingServiceImpl implements MeetingService {
 	@Override
 	public void insertMeetingRelation(Map<String, Object> map) {
 		meetingDao.insertMeetingRelation(map);
+	}
+
+	@Override
+	public List<MeetingVO> selectMeetingList(int uno) {
+		List<MeetingVO> list = meetingDao.selectMeetingList(uno);
+		return list;
 	}
 	
 

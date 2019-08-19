@@ -1,5 +1,6 @@
 package kr.co.yamanna.dao;
 
+import java.util.List;
 import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -11,6 +12,7 @@ import kr.co.yamanna.vo.MeetingVO;
 @Repository
 public class MeetingDAOImpl implements MeetingDAO {
 	
+
 	@Autowired
 	private SqlSessionTemplate session;
 
@@ -30,4 +32,9 @@ public class MeetingDAOImpl implements MeetingDAO {
 		session.insert("kr.co.yamanna.dao.MeetingDAO.insertMeetingMember", map);
 	}
 
+	@Override
+	public List<MeetingVO> selectMeetingList(int uno) {
+		List<MeetingVO> list = session.selectList("kr.co.yamanna.dao.MeetingDAO.selectMeetingList",uno);
+		return list;
+	}
 }

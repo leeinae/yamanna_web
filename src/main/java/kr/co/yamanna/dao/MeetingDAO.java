@@ -1,5 +1,6 @@
 package kr.co.yamanna.dao;
 
+import java.util.List;
 import java.util.Map;
 
 import kr.co.yamanna.vo.MeetingVO;
@@ -11,4 +12,6 @@ public interface MeetingDAO {
 	public int selectMeetingNum(String mid);
 	//참여하는 user들을 relation table에 넣어주기
 	public void insertMeetingRelation(Map<String, Object> map);
+	//내가 속한 meeting List 받아오기
+	public List<MeetingVO> selectMeetingList(int uno);
 }

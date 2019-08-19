@@ -41,5 +41,11 @@ public class MeetingVO {
 		this.ypos = ypos;
 	}
 	
+	@Override
+	public String toString() {
+		return "MeetingVO [mno=" + mno + ", mid=" + mid + ", xpos=" + xpos + ", ypos=" + ypos + ", mdate=" + mdate
+				+ "]";
+	}
+	
 	
 }

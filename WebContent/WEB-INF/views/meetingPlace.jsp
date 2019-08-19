@@ -18,7 +18,7 @@
 	overflow-y: scroll;
 }
 </style>
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=api키값"></script>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=b3679426da0622856631417624335749"></script>
 <script src="//code.jquery.com/jquery-3.4.1.min.js"></script>
 <script>
 function loadMap(x, y) {
@@ -42,7 +42,7 @@ var finalStation = [];
 		var middleX = ${requestScope.middlePoint.xpos }
 		var middleY = ${requestScope.middlePoint.ypos }
 		var xhr = new XMLHttpRequest();
-		var url = "https://api.odsay.com/v1/api/pointSearch?apiKey=키값&lang=0&x="+middleX+"&y="+middleY+"&radius=500&stationClass=2";
+		var url = "https://api.odsay.com/v1/api/pointSearch?apiKey=ohO488CvUmCEUaxjQ9eaKqHZ3TXyT7LJZbQt/2qM2Lw&lang=0&x="+middleX+"&y="+middleY+"&radius=500&stationClass=2";
 		xhr.open("GET",url, true);
 		xhr.send();
 		xhr.onreadystatechange = function() {
@@ -82,7 +82,7 @@ var finalStation = [];
 			var userTime = new Array();
 			for(var j=0; j<station.length; j++) {
 				var xhr = new XMLHttpRequest();
-				var url = "https://api.odsay.com/v1/api/searchPubTransPathR?apiKey=키값&lang=0"+
+				var url = "https://api.odsay.com/v1/api/searchPubTransPathR?apiKey=ohO488CvUmCEUaxjQ9eaKqHZ3TXyT7LJZbQt/2qM2Lw&lang=0"+
 						"&SX="+ user[i].xpos+"&SY="+user[i].ypos
 						+"&EX="+station[j].x+"&EY="+station[j].y+"&OPT=3";
 
