@@ -42,7 +42,7 @@ var finalStation = [];
 		var middleX = ${requestScope.middlePoint.xpos }
 		var middleY = ${requestScope.middlePoint.ypos }
 		var xhr = new XMLHttpRequest();
-		var url = "https://api.odsay.com/v1/api/pointSearch?apiKey=ohO488CvUmCEUaxjQ9eaKqHZ3TXyT7LJZbQt/2qM2Lw&lang=0&x="+middleX+"&y="+middleY+"&radius=500&stationClass=2";
+		var url = "https://api.odsay.com/v1/api/pointSearch?apiKey=ohO488CvUmCEUaxjQ9eaKqHZ3TXyT7LJZbQt/2qM2Lw&lang=0&x="+middleX+"&y="+middleY+"&radius=1500&stationClass=2";
 		xhr.open("GET",url, true);
 		xhr.send();
 		xhr.onreadystatechange = function() {
@@ -75,11 +75,14 @@ var finalStation = [];
 	function loadData(station, user) {
 		alert("station : "+ station.length);
 		alert("user : "+user.length);
-		//2차원 배열 선언
+		//평균소요시간 2차원 배열 선언
 		const userInfo = new Array();
+		//예상 루트 2차원 배열 선언
+		const subPathList = new Array();
 		
 		for(var i=0; i<user.length; i++) {
 			var userTime = new Array();
+			var userPath = new Array();
 			for(var j=0; j<station.length; j++) {
 				var xhr = new XMLHttpRequest();
 				var url = "https://api.odsay.com/v1/api/searchPubTransPathR?apiKey=ohO488CvUmCEUaxjQ9eaKqHZ3TXyT7LJZbQt/2qM2Lw&lang=0"+
@@ -89,22 +92,29 @@ var finalStation = [];
 				xhr.onreadystatechange = function() {
 					if (xhr.readyState == 4 && xhr.status == 200) {
 						var resultObj = JSON.parse(xhr.responseText);
-						var resultArr = resultObj["result"]["path"];
-						var totalTime = resultArr[0]["info"].totalTime;
+						var resultArr = resultObj["result"]["path"][0];
+						userPath = resultArr["subPath"];
+						var totalTime = resultArr["info"].totalTime;
   						if (totalTime !="") {
 	 						userTime[j] = (totalTime);
  						}
 					}
 				}
 				userInfo[i] = userTime;
+				subPathList[i] = userPath;
 				xhr.open("GET",url, false);
 				xhr.send();
 			}
 		}
-		var index = calc(userInfo);
+		var resultList = calc(userInfo);
+		sendPath(subPathList);
+		var index = resultList[0];
+		var min = resultList[1];
 		finalUser = user;
 		finalStation = station[index];
 		loadMap(station[index].x, station[index].y);
+		var output = "<h3>평균 소요 시간 : "+min+"분</h3>";
+		$("#resultDiv").html(output);
 	}
 	
 /* userList[i][j]
@@ -125,7 +135,7 @@ function calc(dataList) {
 		return previous > current ? current : previous;
 	});
 	alert(min+" 분 : "+avgList.indexOf(min));
-	return avgList.indexOf(min);
+	return [avgList.indexOf(min), min];
 }
 
 function confirmPlace(user, station) {
@@ -149,6 +159,24 @@ function confirmPlace(user, station) {
 		}
 	});
 }
+
+function sendPath(subPath) {
+	alert(subPath);
+	$.ajax({
+		type : 'POST',
+		traditional : true,
+		url : "${pageContext.request.contextPath}/send",
+		data : {
+			"data" : subPath
+		},
+		success : function(data) {
+			alert("전송 완료");
+		},
+		error : function(request, status, error) {
+	        alert("code: "+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
+		}
+	});
+}
 </script>
 </head>
 <body>
@@ -166,6 +194,9 @@ function confirmPlace(user, station) {
 	<br>
 	<div id="map" style="width: 500px; height: 400px;">
 		<!-- 결과 지도 창 -->
+	</div>
+	<div id="resultDiv">
+	
 	</div>
 	<br>
 	<input type="button" value="야 만나!" onclick="confirmPlace(finalUser, finalStation)">

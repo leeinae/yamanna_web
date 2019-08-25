@@ -7,8 +7,8 @@
 	<!-- 회원가입 -->
 	<insert id="insertUserInfo" parameterType="memberVO">
 		insert into
-		user_info(uno, id, pw, email, nickname, xpos, ypos)
-		values(user_uno_seq.nextVal, #{id}, #{pw}, #{email}, #{nickname}, #{xpos}, #{ypos})
+		user_info(uno, id, pw, email, nickname, xpos, ypos, addr)
+		values(user_uno_seq.nextVal, #{id}, #{pw}, #{email}, #{nickname}, #{xpos}, #{ypos}, #{addr})
 	</insert>
 
 	<select id="loginCheck" resultType="String" parameterType="memberVO">

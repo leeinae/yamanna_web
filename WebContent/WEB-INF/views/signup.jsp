@@ -35,16 +35,19 @@ $(document).ready(function() {
                 var addr = data.address; // 최종 주소 변수
                 console.log(data);
                 // 주소 정보를 해당 필드에 넣는다.
-                document.getElementById("addrInput").value = addr;
+                $("#addrInput").html(addr);
+                $("#addr").val(addr);
                 // 주소로 상세 정보를 검색
                 geocoder.addressSearch(data.address, function(results, status) {
                     // 정상적으로 검색이 완료됐으면
                     if (status === kakao.maps.services.Status.OK) {
                         var result = results[0]; //첫번째 결과의 값을 활용
                         var coords = new kakao.maps.LatLng(result.y, result.x);
+						//x,y좌표를 input태그에 넣어주긔
+                        $("#xpos").val(result.x);
+                        $("#ypos").val(result.y);
                         // 지도를 보여준다.
                         container.style.display = "block";
-                        alert(result.y + ", "+result.x);
                         map.relayout();
                         // 지도 중심을 변경한다.
                         map.setCenter(coords);
@@ -57,6 +60,10 @@ $(document).ready(function() {
             }
         }).open();
     }
+    
+    function signUp() {
+    	alert("클릭햇긔");
+    }
 </script>
 <body>
 	<h1>회원 가입 페이지</h1>
@@ -66,11 +73,12 @@ $(document).ready(function() {
 		비밀번호 확인: <input type="text" placeholder="비밀번호 확인"><br>
 		닉네임 : <input type="text" name="nickname" placeholder="닉네임"><br>
 		이메일 : <input type="text" name="email" placeholder="이메일"><br>
-		x : <input type="text" name="xpos" placeholder="x좌표"><br>
-		y : <input type="text" name="ypos" placeholder="y좌표"><br>
-		<input type="text" id="addrInput" placeholder="주소"/>
+		<input type="hidden" id="xpos" name="xpos" placeholder="x좌표"><br>
+		<input type="hidden" id="ypos" name="ypos" placeholder="y좌표"><br>
+		<input type="hidden" id="addr" name="addr" placeholder="주소"/>
 		<input type="button" onclick="sample5_execDaumPostcode()" value="주소 검색"/><br>
 		<div id="map" style="width:500px; height:400px;"></div>
+		<h3 id="addrInput"></h3>
 		<button type="submit">가입 완료</button>
 	</form>
 </body>

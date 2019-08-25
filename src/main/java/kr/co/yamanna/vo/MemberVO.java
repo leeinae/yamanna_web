@@ -8,6 +8,15 @@ public class MemberVO {
 	private String nickname;
 	private Double xpos;
 	private Double ypos;
+	private String addr;
+	
+	
+	public String getAddr() {
+		return addr;
+	}
+	public void setAddr(String addr) {
+		this.addr = addr;
+	}
 	public String getEmail() {
 		return email;
 	}
@@ -54,7 +63,7 @@ public class MemberVO {
 	@Override
 	public String toString() {
 		return "MemberVO [uno=" + uno + ", id=" + id + ", pw=" + pw + ", email=" + email + ", nickname=" + nickname
-				+ ", xpos=" + xpos + ", ypos=" + ypos + "]";
+				+ ", xpos=" + xpos + ", ypos=" + ypos + ", addr=" + addr + "]";
 	}
 	
 

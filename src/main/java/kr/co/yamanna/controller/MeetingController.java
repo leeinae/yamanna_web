@@ -15,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -119,6 +120,14 @@ public class MeetingController {
 			meetingService.insertMeetingRelation(relationMap);
 		}
 		System.out.println("DB에 저장 완료ㅠㅠ !");
+	}
+	
+	@RequestMapping(value="/send", method = RequestMethod.POST)
+	@ResponseBody
+	public void sendData(HttpServletRequest request,
+			String[] list) {
+		System.out.println("실행됐어..");
+		System.out.println(list);
 	}
 	
 }
