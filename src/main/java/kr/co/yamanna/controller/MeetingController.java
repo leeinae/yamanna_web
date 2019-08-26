@@ -124,10 +124,46 @@ public class MeetingController {
 	
 	@RequestMapping(value="/send", method = RequestMethod.POST)
 	@ResponseBody
-	public void sendData(HttpServletRequest request,
-			String[] list) {
-		System.out.println("실행됐어..");
-		System.out.println(list);
+	public void sendData(@RequestBody List<List<Map<String,Object>>> list) {
+		System.out.println("사용자 길찾기 경로 parsing");
+		//userInfo는 [ [{},{},{}], [{},{},{}] ]
+		//detailInfo는 그 안의 map들 (1. 지하철 2.버스 3. 도보)
+		for(List<Map<String, Object>> userInfo : list) {
+			//도보 시간
+			int runTime = 0;
+			for(Map<String,Object> detailInfo : userInfo) {
+				int no = (Integer) detailInfo.get("trafficType");
+				String startName;
+				String endName;
+				List<Map<String, String>> station;
+				String stationInfo;
+				String busInfo;
+				
+				switch(no) {
+				case 1 : 
+					//지하철
+					startName = (String) detailInfo.get("startName");
+					endName = (String) detailInfo.get("endName");
+					station = (List<Map<String, String>>) detailInfo.get("lane");
+					stationInfo = station.get(0).get("name");
+					System.out.println("["+ stationInfo + "] 시작은 "+startName+" 끝은 "+endName);
+					break;
+				case 2 : 
+					//버스
+					startName = (String) detailInfo.get("startName");
+					endName = (String) detailInfo.get("endName");
+					station = (List<Map<String, String>>) detailInfo.get("lane");
+					busInfo = station.get(0).get("busNo");
+					System.out.println("["+busInfo+"] 번 버스를 타고 "+startName+" ~ "+endName);
+					break;
+				case 3 :
+					//도보
+					runTime += (int) detailInfo.get("sectionTime");
+					break;
+				}
+			}
+			System.out.println("도보는 "+runTime +"분을 걷지요.. ");
+		}
 	}
 	
 }

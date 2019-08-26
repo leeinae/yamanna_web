@@ -149,7 +149,6 @@ function confirmPlace(user, station) {
 	
 	$.ajax({
 		type : 'POST',
-		dataType: 'json',
 		url : "${pageContext.request.contextPath}/finalPlace",
 		contentType: 'application/json; charset=utf-8',
 		data : JSON.stringify(Info),
@@ -166,11 +165,10 @@ function sendPath(subPath) {
 		type : 'POST',
 		traditional : true,
 		url : "${pageContext.request.contextPath}/send",
-		data : {
-			"data" : subPath
-		},
+		data : JSON.stringify(subPath),
+		contentType : "application/json; charset=utf-8",
 		success : function(data) {
-			alert("전송 완료");
+			alert("데이터 전송 완료");
 		},
 		error : function(request, status, error) {
 	        alert("code: "+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);

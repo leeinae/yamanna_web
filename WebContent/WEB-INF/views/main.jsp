@@ -20,6 +20,7 @@
 	</c:when>
 	<c:otherwise>
 		<a href="${pageContext.request.contextPath }/logout">로그아웃</a><br>
+		<input type="button" value="친구 검색"><a href="#"></a></input>
 		<form action="${pageContext.request.contextPath }/meeting" method="GET">
 			<button type="submit" id="meetBtn">모임 생성</button>
 		</form>
