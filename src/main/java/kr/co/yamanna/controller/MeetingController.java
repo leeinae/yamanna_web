@@ -124,23 +124,27 @@ public class MeetingController {
 	
 	@RequestMapping(value="/send", method = RequestMethod.POST)
 	@ResponseBody
-	public void sendData(@RequestBody List<List<Map<String,Object>>> list) {
+	public List<List<Map<String, Object>>> sendData(@RequestBody List<List<Map<String,Object>>> list) {
 		System.out.println("사용자 길찾기 경로 parsing");
 		//userInfo는 [ [{},{},{}], [{},{},{}] ]
 		//detailInfo는 그 안의 map들 (1. 지하철 2.버스 3. 도보)
+		
+		List<List<Map<String, Object>>> result = new ArrayList<List<Map<String, Object>>>();
+		
 		for(List<Map<String, Object>> userInfo : list) {
-			List<Map<String,String>> routeList = new ArrayList<>();
+			List<Map<String,Object>> routeList = new ArrayList<>();
 			//도보 시간
 			int runTime = 0;
 			
 			for(Map<String,Object> detailInfo : userInfo) {
-				Map<String, String> route= new HashMap<String, String>();
+				Map<String, Object> route= new HashMap<String, Object>();
 				int no = (Integer) detailInfo.get("trafficType");
 				String startName;
 				String endName;
 				List<Map<String, String>> station;
 				String stationInfo;
 				String busInfo;
+				int  totalTime;
 				
 				switch(no) {
 				case 1 : 
@@ -153,6 +157,7 @@ public class MeetingController {
 					route.put("subway", stationInfo);
 					route.put("start", startName);
 					route.put("end", endName);
+					routeList.add(route);
 					
 					System.out.println("["+ stationInfo + "] 시작은 "+startName+" 끝은 "+endName);
 					break;
@@ -166,6 +171,7 @@ public class MeetingController {
 					route.put("bus", busInfo);
 					route.put("start", startName);
 					route.put("end", endName);
+					routeList.add(route);
 					
 					System.out.println("["+busInfo+"] 번 버스를 타고 "+startName+" ~ "+endName);
 					break;
@@ -175,11 +181,27 @@ public class MeetingController {
 					break;
 				case 4 : 
 					//총 소요시간
-					System.out.println("총 소요시간 : "+detailInfo.get("totalTime"));
+					totalTime = (int) detailInfo.get("totalTime");
+					System.out.println("총 소요시간 : "+totalTime);
+					
+					route.put("totalTime",totalTime);
+					routeList.add(route);
+					break;
+				default:
+					break;
 				}
 			}
+			Map<String, Object> walkRoute = new HashMap<String, Object>();
 			System.out.println("도보는 "+runTime +"분을 걷지요.. ");
+			walkRoute.put("walk", runTime);
+			routeList.add(walkRoute);
+			
+			//이 시점에서 DB에 저장 리스트 그대로 ㄱㄱ하자.. 괜찮을까..?ㅠㅠ 
+			System.out.println(routeList);
+			result.add(routeList);
 		}
+		System.out.println(result);
+		return result;
 	}
 	
 }

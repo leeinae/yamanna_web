@@ -161,8 +161,8 @@ function sendPath(subPath) {
 		url : "${pageContext.request.contextPath}/send",
 		data : JSON.stringify(subPath),
 		contentType : "application/json; charset=utf-8",
-		success : function(data) {
-			alert("데이터 전송 완료");
+		success : function(result) {
+			alert("데이터 전송 완료"+ result[0]);
 		},
 		error : function(request, status, error) {
 	        alert("code: "+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
@@ -188,7 +188,6 @@ function sendPath(subPath) {
 		<!-- 결과 지도 창 -->
 	</div>
 	<div id="resultDiv">
-	
 	</div>
 	<br>
 	<input type="button" value="야 만나!" onclick="confirmPlace(finalUser, finalStation)">
