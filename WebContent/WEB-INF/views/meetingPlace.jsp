@@ -7,17 +7,6 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<style type="text/css">
-.box {
-	width: 400px;
-	height: AUTO;
-	border: 1px solid green;
-	border-radius: 5px;
-	padding: 15px;
-	margilln: 15px;
-	overflow-y: scroll;
-}
-</style>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=b3679426da0622856631417624335749"></script>
 <script src="//code.jquery.com/jquery-3.4.1.min.js"></script>
 <script>
@@ -93,10 +82,11 @@ var finalStation = [];
 					if (xhr.readyState == 4 && xhr.status == 200) {
 						var resultObj = JSON.parse(xhr.responseText);
 						var resultArr = resultObj["result"]["path"][0];
-						userPath = resultArr["subPath"];
+						userPath[j] = resultArr["subPath"];
 						var totalTime = resultArr["info"].totalTime;
   						if (totalTime !="") {
 	 						userTime[j] = (totalTime);
+							userPath[j].push({trafficType : 4, totalTime : totalTime});
  						}
 					}
 				}
@@ -106,10 +96,15 @@ var finalStation = [];
 				xhr.send();
 			}
 		}
+		
 		var resultList = calc(userInfo);
-		sendPath(subPathList);
 		var index = resultList[0];
 		var min = resultList[1];
+		var subPath = new Array();
+		for (var i=0; i<userInfo.length; i++){
+			subPath[i] = subPathList[i][index];
+		}
+		sendPath(subPath);
 		finalUser = user;
 		finalStation = station[index];
 		loadMap(station[index].x, station[index].y);
@@ -131,9 +126,8 @@ function calc(dataList) {
 		time = time / dataList.length;
 		avgList.push(time);
 	}
-	var min = avgList.reduce(function(previous, current){
-		return previous > current ? current : previous;
-	});
+  	//배열 최소값 구하기
+	var min = Math.min.apply(null, avgList);
 	alert(min+" 분 : "+avgList.indexOf(min));
 	return [avgList.indexOf(min), min];
 }

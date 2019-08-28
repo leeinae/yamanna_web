@@ -129,9 +129,12 @@ public class MeetingController {
 		//userInfo는 [ [{},{},{}], [{},{},{}] ]
 		//detailInfo는 그 안의 map들 (1. 지하철 2.버스 3. 도보)
 		for(List<Map<String, Object>> userInfo : list) {
+			List<Map<String,String>> routeList = new ArrayList<>();
 			//도보 시간
 			int runTime = 0;
+			
 			for(Map<String,Object> detailInfo : userInfo) {
+				Map<String, String> route= new HashMap<String, String>();
 				int no = (Integer) detailInfo.get("trafficType");
 				String startName;
 				String endName;
@@ -146,6 +149,11 @@ public class MeetingController {
 					endName = (String) detailInfo.get("endName");
 					station = (List<Map<String, String>>) detailInfo.get("lane");
 					stationInfo = station.get(0).get("name");
+					
+					route.put("subway", stationInfo);
+					route.put("start", startName);
+					route.put("end", endName);
+					
 					System.out.println("["+ stationInfo + "] 시작은 "+startName+" 끝은 "+endName);
 					break;
 				case 2 : 
@@ -154,12 +162,20 @@ public class MeetingController {
 					endName = (String) detailInfo.get("endName");
 					station = (List<Map<String, String>>) detailInfo.get("lane");
 					busInfo = station.get(0).get("busNo");
+					
+					route.put("bus", busInfo);
+					route.put("start", startName);
+					route.put("end", endName);
+					
 					System.out.println("["+busInfo+"] 번 버스를 타고 "+startName+" ~ "+endName);
 					break;
 				case 3 :
 					//도보
 					runTime += (int) detailInfo.get("sectionTime");
 					break;
+				case 4 : 
+					//총 소요시간
+					System.out.println("총 소요시간 : "+detailInfo.get("totalTime"));
 				}
 			}
 			System.out.println("도보는 "+runTime +"분을 걷지요.. ");
