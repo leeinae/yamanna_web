@@ -47,6 +47,7 @@ public class MeetingController {
 		//체크박스에 체크된 멤버 id 항목 
 		String[] arr = request.getParameterValues("friend");
 		String date = request.getParameter("date");
+		String meetName = request.getParameter("meetName");
 		
 		//무게중심
 		double middleX = 0;
@@ -85,6 +86,7 @@ public class MeetingController {
 		mav.addObject("middlePoint", middlePoint);
 		mav.addObject("userList",list);
 		mav.addObject("date",date);
+		mav.addObject("meetName",meetName);
 		
 		return mav;
 	}
@@ -103,7 +105,8 @@ public class MeetingController {
 		meetingVO.setXpos((double)param.get("stationXpos"));
 		meetingVO.setYpos((double)param.get("stationYpos"));
 		meetingVO.setMdate((String)param.get("meetDate"));
-		
+		meetingVO.setMname((String)param.get("meetName"));
+		System.out.println(meetingVO);
 		meetingService.insertMeeting(meetingVO);
 		int meetingNum = meetingService.selectMeetingNum(mid);
 		
@@ -119,7 +122,7 @@ public class MeetingController {
 			relationMap.put("uno", map.get("uno"));
 			meetingService.insertMeetingRelation(relationMap);
 		}
-		System.out.println("DB에 저장 완료ㅠㅠ !");
+		System.out.println("DB에 저장 완료 !");
 	}
 	
 	@RequestMapping(value="/send", method = RequestMethod.POST)
@@ -145,6 +148,7 @@ public class MeetingController {
 				String stationInfo;
 				String busInfo;
 				int  totalTime;
+				String id;
 				
 				switch(no) {
 				case 1 : 
@@ -172,8 +176,7 @@ public class MeetingController {
 					route.put("start", startName);
 					route.put("end", endName);
 					routeList.add(route);
-					
-					System.out.println("["+busInfo+"] 번 버스를 타고 "+startName+" ~ "+endName);
+
 					break;
 				case 3 :
 					//도보
@@ -182,17 +185,21 @@ public class MeetingController {
 				case 4 : 
 					//총 소요시간
 					totalTime = (int) detailInfo.get("totalTime");
-					System.out.println("총 소요시간 : "+totalTime);
-					
+
 					route.put("totalTime",totalTime);
 					routeList.add(route);
 					break;
+				case 5 :
+					id = (String) detailInfo.get("userId");
+					route.put("id",id);
+					routeList.add(route);
+					break;					
 				default:
 					break;
 				}
 			}
 			Map<String, Object> walkRoute = new HashMap<String, Object>();
-			System.out.println("도보는 "+runTime +"분을 걷지요.. ");
+
 			walkRoute.put("walk", runTime);
 			routeList.add(walkRoute);
 			

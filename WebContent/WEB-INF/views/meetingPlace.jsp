@@ -87,6 +87,7 @@ var finalStation = [];
   						if (totalTime !="") {
 	 						userTime[j] = (totalTime);
 							userPath[j].push({trafficType : 4, totalTime : totalTime});
+							userPath[j].push({trafficType : 5, userId : user[i].id});
  						}
 					}
 				}
@@ -101,9 +102,11 @@ var finalStation = [];
 		var index = resultList[0];
 		var min = resultList[1];
 		var subPath = new Array();
+		
 		for (var i=0; i<userInfo.length; i++){
 			subPath[i] = subPathList[i][index];
 		}
+		
 		sendPath(subPath);
 		finalUser = user;
 		finalStation = station[index];
@@ -136,6 +139,7 @@ function confirmPlace(user, station) {
 	//json 객체로 controller에 전달~
 	var Info = new Object();
 	Info.user = user;
+	Info.meetName = "${requestScope.meetName}";
 	Info.meetDate = "${requestScope.date}";
 	Info.stationName = station.stationName;
 	Info.stationXpos = station.x;
@@ -162,7 +166,28 @@ function sendPath(subPath) {
 		data : JSON.stringify(subPath),
 		contentType : "application/json; charset=utf-8",
 		success : function(result) {
-			alert("데이터 전송 완료"+ result[0]);
+			alert("데이터 전송 완료");
+			var output="";
+			for(var i=0; i<result.length; i++) {
+				for(var j=0; j<result[i].length; j++) {
+					if(result[i][j].id) {
+						output += '<h2>'+result[i][j].id+'님의 경로</h2>';						
+					}
+					else if(result[i][j].subway) {
+						output += '<h3>'+result[i][j].subway;
+						output += result[i][j].start+'~'+result[i][j].end+'</h3>';						
+					} else if (result[i][j].bus) {
+						output += '<h3>'+String(result[i][j].bus)+'번 버스';
+						output += result[i][j].start+'~'+result[i][j].end+'</h3>';					
+					} else if (result[i][j].walk) {
+						output += '<h4>(도보 : '+result[i][j].walk+'분) </h4>';						
+					} else if (result[i][j].totalTime) {
+						output += '<h3> 총 '+result[i][j].totalTime+' 분 소요 </h3>';						
+					}
+				}
+			output += '<h3>=======================================</h3>';
+			}
+			$("#route").html(output);
 		},
 		error : function(request, status, error) {
 	        alert("code: "+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
@@ -181,15 +206,22 @@ function sendPath(subPath) {
 	<hr>
 	<h2>참여 멤버</h2>
 	<c:forEach items="${members }" var="user">
-		<h3>${user }</h3>
+		<h3>${user.id }</h3>
 	</c:forEach>
 	<br>
 	<div id="map" style="width: 500px; height: 400px;">
 		<!-- 결과 지도 창 -->
-	</div>
+	</div>	
+	
 	<div id="resultDiv">
+		<!-- 평균 소요시간 -->
+	</div>
+
+	<div id="route">
+		<!-- 경로 결과 창 -->
 	</div>
 	<br>
+	
 	<input type="button" value="야 만나!" onclick="confirmPlace(finalUser, finalStation)">
 </body>
 </html>

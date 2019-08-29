@@ -3,12 +3,21 @@ package kr.co.yamanna.vo;
 import java.util.UUID;
 
 public class MeetingVO {
+	private String mname;
 	private int mno;
 	private String mid;
 	private double xpos;
 	private double ypos;
 	private String mdate;
 	
+	
+	
+	public String getMname() {
+		return mname;
+	}
+	public void setMname(String mname) {
+		this.mname = mname;
+	}
 	public int getMno() {
 		return mno;
 	}
@@ -43,9 +52,11 @@ public class MeetingVO {
 	
 	@Override
 	public String toString() {
-		return "MeetingVO [mno=" + mno + ", mid=" + mid + ", xpos=" + xpos + ", ypos=" + ypos + ", mdate=" + mdate
-				+ "]";
+		return "MeetingVO [mname=" + mname + ", mno=" + mno + ", mid=" + mid + ", xpos=" + xpos + ", ypos=" + ypos
+				+ ", mdate=" + mdate + "]";
 	}
+	
+
 	
 	
 }

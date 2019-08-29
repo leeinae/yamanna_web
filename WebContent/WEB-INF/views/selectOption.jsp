@@ -10,6 +10,8 @@
 </head>
 <body>
 	<form id="fridenForm" action="${pageContext.request.contextPath }/createMeeting" method="post">
+		<h3>미팅 이름</h3>
+		<input type="text" name="meetName" value="야만나" onfocus="this.value=''"/>
 		<h3>날짜 선택</h3>
 		<input type="date" id="date" name="date"><br>
 		<h3>친구 선택</h3>

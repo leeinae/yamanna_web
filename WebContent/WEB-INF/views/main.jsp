@@ -20,7 +20,8 @@
 	</c:when>
 	<c:otherwise>
 		<a href="${pageContext.request.contextPath }/logout">로그아웃</a><br>
-		<input type="button" value="친구 검색"><a href="#"></a></input>
+		<input type="button" value="친구 검색" onclick="location='friends'"></input>
+
 		<form action="${pageContext.request.contextPath }/meeting" method="GET">
 			<button type="submit" id="meetBtn">모임 생성</button>
 		</form>
@@ -29,6 +30,7 @@
 			<c:forEach items="${requestScope.meetingList }" var="meeting">
 				<tr>
 					<td>${meeting.mno }</td>
+					<td>${meeting.mname }</td>
 					<td>${meeting.mdate }</td>
 					<td>${meeting.xpos }, ${meeting.ypos }</td>
 				</tr>

@@ -32,4 +32,8 @@
 	<select id="selectMemberId" resultType="memberVO" parameterType="String">
 		select uno, id, email, nickname, xpos, ypos from user_info where id = #{id}
 	</select>
+	
+	<select id="searchFriendId" parameterType="String" resultType="memberVO">
+		select id, nickname from user_info where id = #{id}
+	</select>
 </mapper>

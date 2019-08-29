@@ -2,13 +2,17 @@ package kr.co.yamanna.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import kr.co.yamanna.service.MeetingService;
@@ -73,5 +77,29 @@ public class MemberController {
 		return mav;
 	}
 	
+	@RequestMapping(value="/friends", method = RequestMethod.GET)
+	public String friends() {
+		System.out.println("호출");
+		return "addFriend";
+	}
+	
+	@RequestMapping(value="/searchFriend", method = RequestMethod.POST)
+	@ResponseBody
+	public MemberVO searchFriend(@RequestBody MemberVO mvo) {
+		String id = mvo.getId();
+		MemberVO vo = service.searchFriendById(id);
+		System.out.println(vo);
+		if(vo == null) {
+			vo = new MemberVO();
+			vo.setId("");
+		}
+		return vo;
+	}
+	
+	@RequestMapping(value="/addFriend", method = RequestMethod.POST)
+	public void addFriend(@RequestBody MemberVO mvo) {
+		System.out.println("친구 추가 컨트롤러 추가");
+		System.out.println(mvo.getId());
+	}
 	
 }

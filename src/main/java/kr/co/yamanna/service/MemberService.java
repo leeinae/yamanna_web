@@ -21,4 +21,7 @@ public interface MemberService {
 	
 	//id로 멤버 검색
 	public MemberVO selectMemberId(String id);
+	
+	//친구 검색
+	public MemberVO searchFriendById(String id);
 }

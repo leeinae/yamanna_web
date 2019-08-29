@@ -50,4 +50,11 @@ public class MemberDAOImpl implements MemberDAO {
 		return vo;
 	}
 
+	@Override
+	public MemberVO searchFriendById(String id) {
+		MemberVO vo = session.selectOne("kr.co.yamanna.dao.MemberDAO.searchFriendId", id);
+		return vo;
+	}
+
+	
 }

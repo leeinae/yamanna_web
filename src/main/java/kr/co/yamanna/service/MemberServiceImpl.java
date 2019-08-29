@@ -58,6 +58,12 @@ public class MemberServiceImpl implements MemberService {
 		MemberVO vo = memberDao.selectMemberId(id);
 		return vo;
 	}
+
+	@Override
+	public MemberVO searchFriendById(String id) {
+		MemberVO vo = memberDao.searchFriendById(id);
+		return vo;
+	}
 	
 	
 

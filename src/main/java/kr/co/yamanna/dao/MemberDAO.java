@@ -20,4 +20,7 @@ public interface MemberDAO {
 	
 	//id로 멤버 검색
 	public MemberVO selectMemberId(String id);
+	
+	//id로 친구 검색
+	public MemberVO searchFriendById(String id);
 }
