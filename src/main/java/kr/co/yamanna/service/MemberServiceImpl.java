@@ -1,6 +1,7 @@
 package kr.co.yamanna.service;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -59,9 +60,10 @@ public class MemberServiceImpl implements MemberService {
 		return vo;
 	}
 
+
 	@Override
-	public MemberVO searchFriendById(String id) {
-		MemberVO vo = memberDao.searchFriendById(id);
+	public MemberVO searchFriendById(Map<String, String> map) {
+		MemberVO vo = memberDao.searchFriendById(map);
 		return vo;
 	}
 	

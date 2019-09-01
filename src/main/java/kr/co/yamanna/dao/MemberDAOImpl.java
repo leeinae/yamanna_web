@@ -1,6 +1,7 @@
 package kr.co.yamanna.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -51,10 +52,12 @@ public class MemberDAOImpl implements MemberDAO {
 	}
 
 	@Override
-	public MemberVO searchFriendById(String id) {
-		MemberVO vo = session.selectOne("kr.co.yamanna.dao.MemberDAO.searchFriendId", id);
+	public MemberVO searchFriendById(Map<String, String> map) {
+		MemberVO vo = session.selectOne("kr.co.yamanna.dao.MemberDAO.searchFriendId", map);
 		return vo;
 	}
+	
+	
 
 	
 }

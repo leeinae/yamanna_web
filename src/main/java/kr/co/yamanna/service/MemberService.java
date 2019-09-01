@@ -1,6 +1,7 @@
 package kr.co.yamanna.service;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -23,5 +24,5 @@ public interface MemberService {
 	public MemberVO selectMemberId(String id);
 	
 	//친구 검색
-	public MemberVO searchFriendById(String id);
+	public MemberVO searchFriendById(Map<String, String> map);
 }

@@ -1,6 +1,8 @@
 package kr.co.yamanna.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -85,9 +87,18 @@ public class MemberController {
 	
 	@RequestMapping(value="/searchFriend", method = RequestMethod.POST)
 	@ResponseBody
-	public MemberVO searchFriend(@RequestBody MemberVO mvo) {
+	public MemberVO searchFriend(@RequestBody MemberVO mvo, HttpSession session) {
+		//내 id
+		String myId = (String) session.getAttribute("userId");
+		//검색한 id
 		String id = mvo.getId();
-		MemberVO vo = service.searchFriendById(id);
+		
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("myId", myId);
+		map.put("id", id);
+		
+		MemberVO vo = service.searchFriendById(map);
+		
 		System.out.println(vo);
 		if(vo == null) {
 			vo = new MemberVO();
