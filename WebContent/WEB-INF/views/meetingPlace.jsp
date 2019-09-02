@@ -8,7 +8,29 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=b3679426da0622856631417624335749"></script>
-<script src="//code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script>
+
+function showLoadingBar() {
+	var maskHeight = $(document).height();
+	var maskWidth = window.document.body.clientWidth;
+	var mask = '<div id="mask" style="position:absolute; z-index:9000; background-color:#000000; display:none; left:0; top:0;"></div>'; 
+	var loadingImg = ''; 
+	loadingImg += '<div id="loadingImg" style="position:absolute; left:50%; top:40%; display:none; z-index:10000;">';
+	loadingImg += "<img src='/resources/img/loading.gif'/>";
+	loadingImg += "</div>"; 
+	
+  	$('#Body').append(mask).append(loadingImg);
+	$('#mask').css({ 'width' : maskWidth , 'height': maskHeight , 'opacity' : '0.3' });
+	$('#mask').show();
+	$('#loadingImg').show();
+}
+
+function hideLoadingBar() {
+	$('#mask, #loadingImg').hide();
+	$('#mask, #loadingImg').remove();
+}
+</script>
 <script>
 function loadMap(x, y) {
 		var container = document.getElementById("map");
@@ -28,6 +50,7 @@ function loadMap(x, y) {
 var finalUser =[];
 var finalStation = [];
 	$(document).ready(function() {
+		showLoadingBar();
 		var middleX = ${requestScope.middlePoint.xpos }
 		var middleY = ${requestScope.middlePoint.ypos }
 		var xhr = new XMLHttpRequest();
@@ -62,13 +85,10 @@ var finalStation = [];
 	
 	
 	function loadData(station, user) {
-		alert("station : "+ station.length);
-		alert("user : "+user.length);
 		//평균소요시간 2차원 배열 선언
 		const userInfo = new Array();
 		//예상 루트 2차원 배열 선언
 		const subPathList = new Array();
-		
 		for(var i=0; i<user.length; i++) {
 			var userTime = new Array();
 			var userPath = new Array();
@@ -113,6 +133,7 @@ var finalStation = [];
 		loadMap(station[index].x, station[index].y);
 		var output = "<h3>평균 소요 시간 : "+min+"분</h3>";
 		$("#resultDiv").html(output);
+		hideLoadingBar();
 	}
 	
 /* userList[i][j]
@@ -158,7 +179,6 @@ function confirmPlace(user, station) {
 }
 
 function sendPath(subPath) {
-	alert(subPath);
 	$.ajax({
 		type : 'POST',
 		traditional : true,
@@ -166,7 +186,6 @@ function sendPath(subPath) {
 		data : JSON.stringify(subPath),
 		contentType : "application/json; charset=utf-8",
 		success : function(result) {
-			alert("데이터 전송 완료");
 			var output="";
 			for(var i=0; i<result.length; i++) {
 				for(var j=0; j<result[i].length; j++) {
@@ -194,9 +213,10 @@ function sendPath(subPath) {
 		}
 	});
 }
+
 </script>
 </head>
-<body>
+<body id="Body">
 	<h1>모임 장소</h1>
 	<h2>중간 지점 좌표 [ ${requestScope.middlePoint.xpos },
 		${requestScope.middlePoint.ypos } ]</h2>
@@ -221,7 +241,6 @@ function sendPath(subPath) {
 		<!-- 경로 결과 창 -->
 	</div>
 	<br>
-	
 	<input type="button" value="야 만나!" onclick="confirmPlace(finalUser, finalStation)">
 </body>
 </html>
