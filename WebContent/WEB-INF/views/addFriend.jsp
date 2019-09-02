@@ -47,15 +47,18 @@
 		};
 		$.ajax({
 			url : "${pageContext.request.contextPath}/addFriend",
-			type:"POST",
-			dataType: "json",
+			type: "POST",
 			contentType:"application/json;charset=UTF-8",
 			data : JSON.stringify(data),
 			success : function(data){
-				alert("여기 성공");
+				if(data == false) {
+					alert("이미 친구입니다!");
+				} else {
+					alsert("추가 되었습니다! 만남을 생성해보세요");
+				}
 			},
-			error : function() {
-				alert("여기 실패");
+			error : function(re, status, error) {
+				alert(error);
 			}
 			
 		});

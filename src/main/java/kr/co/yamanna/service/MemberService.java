@@ -25,4 +25,13 @@ public interface MemberService {
 	
 	//친구 검색
 	public MemberVO searchFriendById(Map<String, String> map);
+	
+	//친구 여부 조회
+	public int selectRelation(Map<String,Integer> map);
+	
+	//친구 추가
+	public void insertFriendRelation(Map<String,Integer> map);
+	
+	//친구 번호 조회
+	public int selectUno(String id);
 }

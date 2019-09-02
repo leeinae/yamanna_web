@@ -56,6 +56,23 @@ public class MemberDAOImpl implements MemberDAO {
 		MemberVO vo = session.selectOne("kr.co.yamanna.dao.MemberDAO.searchFriendId", map);
 		return vo;
 	}
+
+	@Override
+	public int selectRelation(Map<String, Integer> map) {
+		int flag = session.selectOne("kr.co.yamanna.dao.MemberDAO.selectRelation",map);
+		return flag;
+	}
+
+	@Override
+	public void insertFriendRelation(Map<String, Integer> map) {
+		session.insert("kr.co.yamanna.dao.MemberDAO.insertRelation", map);
+	}
+
+	@Override
+	public int selectUno(String id) {
+		int no = session.selectOne("kr.co.yamanna.dao.MemberDAO.selectUno", id);
+		return no;
+	}
 	
 	
 

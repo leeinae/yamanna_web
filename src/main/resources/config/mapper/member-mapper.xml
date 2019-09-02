@@ -36,4 +36,19 @@
 	<select id="searchFriendId" parameterType="Map" resultType="memberVO">
 		select id, nickname from user_info where id = #{id} and id not in #{myId}
 	</select>
+	
+	<!-- 친구 여부 조회 -->
+	<select id="selectRelation" parameterType="Map" resultType="int">
+		select count(*) from user_relation where uno=#{uno} and fno=#{fno}
+	</select>
+	
+	<!-- 개인 번호 조회 -->
+	<select id="selectUno" parameterType="String" resultType="int">
+		select uno from user_info where id = #{id}
+	</select>
+	
+	<!-- 친구추가 -->
+	<insert id="insertRelation" parameterType="Map">
+		insert into user_relation(uno, fno) values(#{uno}, #{fno})
+	</insert>
 </mapper>

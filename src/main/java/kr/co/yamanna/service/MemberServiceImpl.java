@@ -66,6 +66,23 @@ public class MemberServiceImpl implements MemberService {
 		MemberVO vo = memberDao.searchFriendById(map);
 		return vo;
 	}
+
+	@Override
+	public int selectRelation(Map<String, Integer> map) {
+		int flag = memberDao.selectRelation(map);
+		return flag;
+	}
+
+	@Override
+	public void insertFriendRelation(Map<String, Integer> map) {
+		memberDao.insertFriendRelation(map);
+	}
+
+	@Override
+	public int selectUno(String id) {
+		int no = memberDao.selectUno(id);
+		return no;
+	}
 	
 	
 

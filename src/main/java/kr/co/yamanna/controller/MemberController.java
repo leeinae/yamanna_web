@@ -108,9 +108,33 @@ public class MemberController {
 	}
 	
 	@RequestMapping(value="/addFriend", method = RequestMethod.POST)
-	public void addFriend(@RequestBody MemberVO mvo) {
+	@ResponseBody
+	public boolean addFriend(@RequestBody Map<String,String> mvo, HttpSession session) {
 		System.out.println("친구 추가 컨트롤러 추가");
-		System.out.println(mvo.getId());
+		//내 id
+		String myId = (String) session.getAttribute("userId");
+		//검색한 id
+		String id = mvo.get("id");
+
+		//id로 no 검색하기
+		int uno = service.selectUno(myId);
+		int fno = service.selectUno(id);
+		
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		map.put("uno", uno);
+		map.put("fno", fno);
+		
+		//친구여부 판단
+		int flag = service.selectRelation(map);
+
+		if(flag==0) {
+			//친구가 아닐 때 친구 추가한다
+			service.insertFriendRelation(map);
+			return true;
+		} else {
+			//친구일 때
+			return false;
+		}
 	}
 	
 }
