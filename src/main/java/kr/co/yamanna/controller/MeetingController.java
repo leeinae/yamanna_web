@@ -152,8 +152,9 @@ public class MeetingController {
 				
 				switch(no) {
 				case 0 :
-					 route.put("flag", "end");
-					 routeList.add(route);
+					route.put("flag","end");
+					routeList.add(route);
+					break;
 				case 1 : 
 					//지하철
 					startName = (String) detailInfo.get("startName");

@@ -7,7 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=b3679426da0622856631417624335749"></script>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=b3679426da0622856631417624335749&libraries=services"></script>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script>
 /* 로딩바 */
@@ -33,18 +33,47 @@ function hideLoadingBar() {
 </script>
 <script>
 function loadMap(x, y) {
+		var infowindow = new kakao.maps.InfoWindow({zIndex:1});
 		var container = document.getElementById("map");
 		var options = {
 				center : new kakao.maps.LatLng(y, x),
 				level : 3
 		}
 		var map = new kakao.maps.Map(container, options);
+		// 장소 검색 객체 생성
+		var ps = new kakao.maps.services.Places(map); 
+		// 카테고리로 은행을 검색합니다
+		ps.categorySearch('BK9', placesSearchCB, {useMapBounds:true}); 
+		// 키워드 검색 완료 시 호출되는 콜백함수 입니다
+		
+		function placesSearchCB (data, status, pagination) {
+		    if (status === kakao.maps.services.Status.OK) {
+		        for (var i=0; i<data.length; i++) {
+		            displayMarker(data[i]);    
+		        }       
+		    }
+		}
+		
+		function displayMarker(place) {
+		    // 마커를 생성하고 지도에 표시합니다
+		    var marker = new kakao.maps.Marker({
+		        map: map,
+		        position: new kakao.maps.LatLng(place.y, place.x) 
+		    });
+
+		    // 마커에 클릭이벤트를 등록합니다
+		    kakao.maps.event.addListener(marker, 'click', function() {
+		        // 마커를 클릭하면 장소명이 인포윈도우에 표출됩니다
+		        infowindow.setContent('<div style="padding:5px;font-size:12px;">' + place.place_name + '</div>');
+		        infowindow.open(map, marker);
+		    });
 		var makerPosition = new kakao.maps.LatLng(y, x);
 		var maker = new kakao.maps.Marker({
 			position : makerPosition
 		});
 		maker.setMap(map);
 	}
+}
 </script>
 <script>
 var finalUser =[];
@@ -103,7 +132,7 @@ var finalStation = [];
 						var resultObj = JSON.parse(xhr.responseText);
 						var resultArr = resultObj["result"]["path"][0];
 						userPath[j] = resultArr["subPath"];
-						userPath[j].push({trafficType :0, path : "end"});
+						userPath[j].push({trafficType : 0, path : "end"});
 						var totalTime = resultArr["info"].totalTime;
   						if (totalTime !="") {
 	 						userTime[j] = (totalTime);
@@ -193,13 +222,12 @@ function sendPath(subPath) {
 					if(result[i][j].id) {
 						var id = result[i][j].id;
 						output += '<h2>'+result[i][j].id+'님의 경로</h2>';						
-					}
-					else if(result[i][j].subway) {
-						output += '<h3>'+result[i][j].subway;
-						output += result[i][j].start+'~'+result[i][j].end+'</h3>';						
+					} else if(result[i][j].subway) {
+						output += '<h3>['+result[i][j].subway+'] ';
+						output += result[i][j].start+' ~ '+result[i][j].end+'</h3>';						
 					} else if (result[i][j].bus) {
-						output += '<h3>'+String(result[i][j].bus)+'번 버스';
-						output += result[i][j].start+'~'+result[i][j].end+'</h3>';					
+						output += '<h3>['+String(result[i][j].bus)+'번 버스] ';
+						output += result[i][j].start+' ~ '+result[i][j].end+'</h3>';					
 					} else if (result[i][j].walk) {
 						output += '<h4>(도보 : '+result[i][j].walk+'분) </h4>';						
 					} else if (result[i][j].totalTime) {
