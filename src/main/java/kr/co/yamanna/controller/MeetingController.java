@@ -151,6 +151,9 @@ public class MeetingController {
 				String id;
 				
 				switch(no) {
+				case 0 :
+					 route.put("flag", "end");
+					 routeList.add(route);
 				case 1 : 
 					//지하철
 					startName = (String) detailInfo.get("startName");
@@ -162,8 +165,7 @@ public class MeetingController {
 					route.put("start", startName);
 					route.put("end", endName);
 					routeList.add(route);
-					
-					System.out.println("["+ stationInfo + "] 시작은 "+startName+" 끝은 "+endName);
+
 					break;
 				case 2 : 
 					//버스

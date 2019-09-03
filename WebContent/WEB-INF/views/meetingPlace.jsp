@@ -10,7 +10,7 @@
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=b3679426da0622856631417624335749"></script>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script>
-
+/* 로딩바 */
 function showLoadingBar() {
 	var maskHeight = $(document).height();
 	var maskWidth = window.document.body.clientWidth;
@@ -103,11 +103,12 @@ var finalStation = [];
 						var resultObj = JSON.parse(xhr.responseText);
 						var resultArr = resultObj["result"]["path"][0];
 						userPath[j] = resultArr["subPath"];
+						userPath[j].push({trafficType :0, path : "end"});
 						var totalTime = resultArr["info"].totalTime;
   						if (totalTime !="") {
 	 						userTime[j] = (totalTime);
 							userPath[j].push({trafficType : 4, totalTime : totalTime});
-							userPath[j].push({trafficType : 5, userId : user[i].id});
+							userPath[j].unshift({trafficType : 5, userId : user[i].id});
  						}
 					}
 				}
@@ -190,6 +191,7 @@ function sendPath(subPath) {
 			for(var i=0; i<result.length; i++) {
 				for(var j=0; j<result[i].length; j++) {
 					if(result[i][j].id) {
+						var id = result[i][j].id;
 						output += '<h2>'+result[i][j].id+'님의 경로</h2>';						
 					}
 					else if(result[i][j].subway) {
@@ -228,14 +230,14 @@ function sendPath(subPath) {
 	<c:forEach items="${members }" var="user">
 		<h3>${user.id }</h3>
 	</c:forEach>
+	<div id="resultDiv">
+		<!-- 평균 소요시간 -->
+	</div>
 	<br>
 	<div id="map" style="width: 500px; height: 400px;">
 		<!-- 결과 지도 창 -->
 	</div>	
 	
-	<div id="resultDiv">
-		<!-- 평균 소요시간 -->
-	</div>
 
 	<div id="route">
 		<!-- 경로 결과 창 -->
