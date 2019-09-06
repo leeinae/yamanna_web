@@ -186,9 +186,9 @@ function loadMap(x, y) {
 		// 클릭한 마커에 대한 장소 상세정보를 커스텀 오버레이로 표시하는 함수입니다
 		function displayPlaceInfo (place) {
 		    var content = '<div class="placeinfo">' +
-		                    '   <a class="title" href="' + place.place_url + '" target="_blank" title="' + place.place_name + '">' + place.place_name + '</a>';   
+		                    '   <a class="title" href="' + place.place_url + '" target="_blank" title="' + place.place_name + '">' + place.place_name + '</a><div class="after"></div>';   
 
-/* 		    if (place.road_address_name) {
+/*  		    if (place.road_address_name) {
 		        content += '    <span title="' + place.road_address_name + '">' + place.road_address_name + '</span>' +
 		                    '  <span class="jibun" title="' + place.address_name + '">(지번 : ' + place.address_name + ')</span>';
 		    }  else {
@@ -196,8 +196,19 @@ function loadMap(x, y) {
 		    }                
 		    content += '    <span class="tel">' + place.phone + '</span>' + 
 		                '</div>' + 
-		                '<div class="after"></div>';*/
+		                '<div class="after"></div>'; */
 		    contentNode.innerHTML = content;
+		    var output = '<a class="title" href="' + place.place_url + '" target="_blank" title="' + place.place_name + '">' + place.place_name + '</a>';
+		    if(place.road_address_name){
+		    	output += '<h4 title="' + place.road_address_name + '">' + place.road_address_name + '</h4>' +
+                '  <h4 class="jibun" title="' + place.address_name + '">(지번 : ' + place.address_name + ')</h4>';
+		    } else {
+		        output += '<h4 title="' + place.address_name + '">' + place.address_name + '</h4>';		    	
+		    }
+		    output += '<h4 class="tel">' + place.phone + '</h4>';
+		    output += '<h4>'+place.x+', '+place.y+'</h4>';
+		    var textarea = $("#placeInfo");
+		    textarea.html(output);
 		    placeOverlay.setPosition(new kakao.maps.LatLng(place.y, place.x));
 		    placeOverlay.setMap(map);  
 		}
@@ -434,23 +445,31 @@ function sendPath(subPath) {
 		<!-- 평균 소요시간 -->
 	</div>
 	<br>
-	<div class="map_wrap">
-		<div id="map" style="width: 600px; height: 450px;">
-			<!-- 결과 지도 창 -->
-		</div>
-		<ul id="category">
-			<li id="CE7" data-order="4"><span class="category_bg cafe"></span>
-				카페</li>
-			<li id="FD6" data-order="4"><span class="category_bg cafe"></span>
-				음식점</li>
-			<li id="CT1" data-order="0"><span class="category_bg bank"></span>
-				문화시설</li>
-			<li id="AT4" data-order="4"><span class="category_bg cafe"></span>
-				관광명소</li>
-		</ul>
-	</div>
+	<table>
+		<tr style="width: 100%">
+			<td style="width: 60%">
+				<div class="map_wrap">
+					<div id="map" style="width: 600px; height: 450px;">
+						<!-- 결과 지도 창 -->
+					</div>
+					<ul id="category">
+						<li id="CE7" data-order="4"><span class="category_bg cafe"></span>
+							카페</li>
+						<li id="FD6" data-order="4"><span class="category_bg cafe"></span>
+							음식점</li>
+						<li id="CT1" data-order="0"><span class="category_bg bank"></span>
+							문화시설</li>
+						<li id="AT4" data-order="4"><span class="category_bg cafe"></span>
+							관광명소</li>
+					</ul>
+				</div>
+			</td>
+			<td>
+				<div id="placeInfo"></div>
+			</td>
+		</tr>
+	</table>
 	
-
 	<div id="route">
 		<!-- 경로 결과 창 -->
 	</div>
