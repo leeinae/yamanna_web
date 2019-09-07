@@ -26,13 +26,30 @@
 			<button type="submit" id="meetBtn">모임 생성</button>
 		</form>
 		<h3>내가 속한 모임</h3>
+
 		<table border="1">
-			<c:forEach items="${requestScope.meetingList }" var="meeting">
+			<thead>
 				<tr>
-					<td>${meeting.mno }</td>
-					<td>${meeting.mname }</td>
-					<td>${meeting.mdate }</td>
-					<td>${meeting.xpos }, ${meeting.ypos }</td>
+					<th>모임명</th>
+					<th>만남 일자</th>
+					<th>만남 장소</th>
+					<th>참석자</th>
+				</tr>
+			</thead>
+			
+			<c:forEach items="${requestScope.list }" var="list">
+				<tr>
+					<td>${list[0].mname }</td>
+					<td>${list[0].mdate }</td>
+					<td>${list[0].pname }</td>
+					<td>
+						<c:forEach items="${list[1] }" var="member" varStatus="index">
+							${member.nickname }
+							<c:if test="${!index.last }">
+								,
+							</c:if>
+						</c:forEach>
+					</td>
 				</tr>
 			</c:forEach>			
 		</table>

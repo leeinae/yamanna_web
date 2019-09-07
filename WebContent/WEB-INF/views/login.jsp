@@ -30,7 +30,7 @@
 </head>
 <body>
 	<h1>로그인 페이지</h1><hr>
-	<form name="loginForm" action="${pageContext.request.contextPath}/logincheck" method="post">
+	<form name="loginForm" action="${pageContext.request.contextPath}/home" method="post">
 		id : <input type="text" name="id" id="id"><br>
 		pw : <input type="text" name="pw" id="pw"><br>
 		<button type="button" id="LoginBtn">로그인</button>	

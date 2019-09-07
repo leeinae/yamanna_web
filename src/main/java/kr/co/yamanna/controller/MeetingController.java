@@ -95,17 +95,22 @@ public class MeetingController {
 	@ResponseBody
 	public void saveData(@RequestBody Map<String,Object> param) {
 		System.out.println("finalPlace 호출");
-		System.out.println(param);
+		System.out.println(param + " ? ");
 		
 		String mid = UUID.randomUUID().toString();
 		System.out.println(mid);
 		
 		MeetingVO meetingVO = new MeetingVO();
 		meetingVO.setMid(mid);
-		meetingVO.setXpos((double)param.get("stationXpos"));
-		meetingVO.setYpos((double)param.get("stationYpos"));
+		meetingVO.setXpos(Double.parseDouble((String) param.get("xpos")));
+		meetingVO.setYpos(Double.parseDouble((String) param.get("ypos")));
 		meetingVO.setMdate((String)param.get("meetDate"));
 		meetingVO.setMname((String)param.get("meetName"));
+		meetingVO.setPname((String)param.get("pname"));
+		meetingVO.setUrl((String)param.get("url"));
+		meetingVO.setPaddr((String)param.get("paddr"));
+		meetingVO.setPraddr((String)param.get("praddr"));
+		meetingVO.setPphone((String)param.get("pphone"));
 		System.out.println(meetingVO);
 		meetingService.insertMeeting(meetingVO);
 		int meetingNum = meetingService.selectMeetingNum(mid);

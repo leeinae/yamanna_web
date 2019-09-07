@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import kr.co.yamanna.dao.MeetingDAO;
 import kr.co.yamanna.vo.MeetingVO;
+import kr.co.yamanna.vo.MemberVO;
 
 @Service
 public class MeetingServiceImpl implements MeetingService {
@@ -32,8 +33,8 @@ public class MeetingServiceImpl implements MeetingService {
 	}
 
 	@Override
-	public List<MeetingVO> selectMeetingList(int uno) {
-		List<MeetingVO> list = meetingDao.selectMeetingList(uno);
+	public List<List<Object>> selectMeetingList(int uno) {
+		List<List<Object>> list = meetingDao.selectMeetingList(uno);
 		return list;
 	}
 	

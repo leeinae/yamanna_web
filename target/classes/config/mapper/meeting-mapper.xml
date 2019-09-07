@@ -4,7 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.co.yamanna.dao.MeetingDAO">
 	<insert id="insertMeetingInfo" parameterType="MeetingVO">
-		insert into meeting(mid, mno, xpos, ypos, mdate, mname) values(#{mid}, meeting_mno_seq.nextVal, #{xpos}, #{ypos}, #{mdate}, #{mname})
+		insert into meeting(mid, mno, xpos, ypos, mdate, mname, pname, pphone, praddr, paddr, url) values(#{mid}, meeting_mno_seq.nextVal, #{xpos}, #{ypos}, #{mdate}, #{mname}, #{pname}, #{pphone}, #{praddr}, #{paddr}, #{url})
 	</insert>
 	
 	<select id="selectMeetingNo" resultType="int">
@@ -16,6 +16,10 @@
 	</insert>
 	
 	<select id="selectMeetingList" resultType="MeetingVO" parameterType="int">
-		select mid, mno, xpos, ypos, mdate, mname from meeting where mno in (select mno from meeting_relation where uno=#{uno}) order by mdate
+		select mid, mno, TO_CHAR(mdate,'YYYY-MM-DD') as mdate, mname, pname from meeting where mno in (select mno from meeting_relation where uno=#{uno}) order by mdate
+	</select>
+	
+	<select id="selectMeetingMemberList" resultType="MemberVO" parameterType="int">
+		select id, nickname from user_info where uno in (select uno from meeting_relation where mno=#{mno})
 	</select>
 </mapper>

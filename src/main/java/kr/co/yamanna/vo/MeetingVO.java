@@ -9,7 +9,11 @@ public class MeetingVO {
 	private double xpos;
 	private double ypos;
 	private String mdate;
-	
+	private String pname;
+	private String url;
+	private String pphone;
+	private String praddr; 
+	private String paddr;
 	
 	
 	public String getMname() {
@@ -50,11 +54,44 @@ public class MeetingVO {
 		this.ypos = ypos;
 	}
 	
+	
+	public String getPname() {
+		return pname;
+	}
+	public void setPname(String pname) {
+		this.pname = pname;
+	}
+	public String getUrl() {
+		return url;
+	}
+	public void setUrl(String url) {
+		this.url = url;
+	}
+	public String getPphone() {
+		return pphone;
+	}
+	public void setPphone(String pphone) {
+		this.pphone = pphone;
+	}
+	public String getPraddr() {
+		return praddr;
+	}
+	public void setPraddr(String praddr) {
+		this.praddr = praddr;
+	}
+	public String getPaddr() {
+		return paddr;
+	}
+	public void setPaddr(String paddr) {
+		this.paddr = paddr;
+	}
 	@Override
 	public String toString() {
 		return "MeetingVO [mname=" + mname + ", mno=" + mno + ", mid=" + mid + ", xpos=" + xpos + ", ypos=" + ypos
-				+ ", mdate=" + mdate + "]";
+				+ ", mdate=" + mdate + ", pname=" + pname + ", url=" + url + ", pphone=" + pphone + ", praddr=" + praddr
+				+ ", paddr=" + paddr + "]";
 	}
+
 	
 
 	

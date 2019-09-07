@@ -33,6 +33,7 @@ function hideLoadingBar() {
 }
 </script>
 <script>
+var placeInfo = new Object();
 function loadMap(x, y) {
 		// 마커를 클릭했을 때 해당 장소의 상세정보를 보여줄 커스텀오버레이입니다
 		var placeOverlay = new kakao.maps.CustomOverlay({zIndex:1}), 
@@ -188,6 +189,14 @@ function loadMap(x, y) {
 		    var content = '<div class="placeinfo">' +
 		                    '   <a class="title" href="' + place.place_url + '" target="_blank" title="' + place.place_name + '">' + place.place_name + '</a><div class="after"></div>';   
 
+			placeInfo.pname = place.place_name;
+			placeInfo.purl = place.place_url,
+			placeInfo.praddr = place.road_address_name;
+			placeInfo.paddr = place.address_name;
+			placeInfo.pphone = place.phone;
+			placeInfo.xpos = place.x;
+			placeInfo.ypos = place.y;
+
 /*  		    if (place.road_address_name) {
 		        content += '    <span title="' + place.road_address_name + '">' + place.road_address_name + '</span>' +
 		                    '  <span class="jibun" title="' + place.address_name + '">(지번 : ' + place.address_name + ')</span>';
@@ -198,7 +207,7 @@ function loadMap(x, y) {
 		                '</div>' + 
 		                '<div class="after"></div>'; */
 		    contentNode.innerHTML = content;
-		    var output = '<a class="title" href="' + place.place_url + '" target="_blank" title="' + place.place_name + '">' + place.place_name + '</a>';
+		    var output = '<h2>'+place.place_name +'</h2>';
 		    if(place.road_address_name){
 		    	output += '<h4 title="' + place.road_address_name + '">' + place.road_address_name + '</h4>' +
                 '  <h4 class="jibun" title="' + place.address_name + '">(지번 : ' + place.address_name + ')</h4>';
@@ -206,9 +215,12 @@ function loadMap(x, y) {
 		        output += '<h4 title="' + place.address_name + '">' + place.address_name + '</h4>';		    	
 		    }
 		    output += '<h4 class="tel">' + place.phone + '</h4>';
-		    output += '<h4>'+place.x+', '+place.y+'</h4>';
+		    output += '<h4><a href="' + place.place_url + '" target="_blank" title="' + place.place_name + '">더보기</a></h4>';
+		    output += '<input type="button" value="야만나" onclick="confirmPlace(finalUser, placeInfo)">';
+		    
 		    var textarea = $("#placeInfo");
 		    textarea.html(output);
+		    
 		    placeOverlay.setPosition(new kakao.maps.LatLng(place.y, place.x));
 		    placeOverlay.setMap(map);  
 		}
@@ -365,19 +377,23 @@ function calc(dataList) {
 	}
   	//배열 최소값 구하기
 	var min = Math.min.apply(null, avgList);
-	alert(min+" 분 : "+avgList.indexOf(min));
+
 	return [avgList.indexOf(min), min];
 }
 
-function confirmPlace(user, station) {
+function confirmPlace(user, place) {
 	//json 객체로 controller에 전달~
 	var Info = new Object();
 	Info.user = user;
 	Info.meetName = "${requestScope.meetName}";
 	Info.meetDate = "${requestScope.date}";
-	Info.stationName = station.stationName;
-	Info.stationXpos = station.x;
-	Info.stationYpos = station.y;
+	Info.pname = place.pname;
+	Info.xpos = place.xpos;
+	Info.ypos = place.ypos;
+	Info.url = place.purl;
+	Info.paddr = place.paddr;
+	Info.praddr = place.praddr;
+	Info.pphone = place.pphone;
 	
 	$.ajax({
 		type : 'POST',
@@ -386,7 +402,12 @@ function confirmPlace(user, station) {
 		data : JSON.stringify(Info),
 		async : false,
 		success : function(data) {
-			alert("전송 완료");
+			alert("모임이 생성되었습니다!");
+			window.location.replace("${pageContext.request.contextPath }/home");
+		},
+		error : function(request, status, error) {
+			alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+
 		}
 	});
 }
@@ -411,10 +432,10 @@ function sendPath(subPath) {
 					} else if (result[i][j].bus) {
 						output += '<h3>['+String(result[i][j].bus)+'번 버스] ';
 						output += result[i][j].start+' ~ '+result[i][j].end+'</h3>';					
-					} else if (result[i][j].walk) {
-						output += '<h4>(도보 : '+result[i][j].walk+'분) </h4>';						
 					} else if (result[i][j].totalTime) {
 						output += '<h3> 총 '+result[i][j].totalTime+' 분 소요 </h3>';						
+					} else if (result[i][j].walk) {
+						output += '<h4>(도보 : '+result[i][j].walk+'분) </h4>';						
 					}
 				}
 			output += '<h3>=======================================</h3>';
@@ -430,6 +451,7 @@ function sendPath(subPath) {
 </script>
 </head>
 <body id="Body">
+	<a href="${pagecontext.request.contextPath }/home" method="POST">홈으로</a>
 	<h1>모임 장소</h1>
 	<h2>중간 지점 좌표 [ ${requestScope.middlePoint.xpos },
 		${requestScope.middlePoint.ypos } ]</h2>
@@ -446,9 +468,9 @@ function sendPath(subPath) {
 	</div>
 	<br>
 	<table>
-		<tr style="width: 100%">
+		<tr style="width: 100%; height:500px;">
 			<td style="width: 60%">
-				<div class="map_wrap">
+				<span class="map_wrap">
 					<div id="map" style="width: 600px; height: 450px;">
 						<!-- 결과 지도 창 -->
 					</div>
@@ -462,7 +484,7 @@ function sendPath(subPath) {
 						<li id="AT4" data-order="4"><span class="category_bg cafe"></span>
 							관광명소</li>
 					</ul>
-				</div>
+				</span>
 			</td>
 			<td>
 				<div id="placeInfo"></div>
@@ -474,6 +496,6 @@ function sendPath(subPath) {
 		<!-- 경로 결과 창 -->
 	</div>
 	<br>
-	<input type="button" value="야 만나!" onclick="confirmPlace(finalUser, finalStation)">
+
 </body>
 </html>

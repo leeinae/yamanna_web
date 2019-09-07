@@ -31,13 +31,8 @@ public class MemberController {
 	@Autowired
 	private MeetingService meetingService;
 	
-	@RequestMapping(value = "/login", method = RequestMethod.GET)
-	public String login() {
-		System.out.println("login 호출");
-		return "login";
-	}
 	
-	@RequestMapping(value = "/logincheck", method = RequestMethod.POST)
+	@RequestMapping(value = "/home", method = RequestMethod.POST)
 	public ModelAndView successLogin(@ModelAttribute MemberVO vo, HttpSession session) {
 		System.out.println("login 여부  호출" + session);
 		boolean result = service.loginCheck(vo, session);
@@ -45,11 +40,12 @@ public class MemberController {
 		if(result == true) {
 			int uno = (int) session.getAttribute("userNo");
 			
-			List<MeetingVO> meetingList = meetingService.selectMeetingList(uno);
+			List<List<Object>> meetingList = meetingService.selectMeetingList(uno);
+			System.out.println(meetingList);
 			
 			mav.setViewName("main");
 			mav.addObject("msg","success");
-			mav.addObject("meetingList",meetingList);
+			mav.addObject("list",meetingList);
 		} else {
 			System.out.println("fail");
 			mav.setViewName("login");

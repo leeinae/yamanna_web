@@ -1,5 +1,7 @@
 package kr.co.yamanna.dao;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -8,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import kr.co.yamanna.vo.MeetingVO;
+import kr.co.yamanna.vo.MemberVO;
 
 @Repository
 public class MeetingDAOImpl implements MeetingDAO {
@@ -33,8 +36,24 @@ public class MeetingDAOImpl implements MeetingDAO {
 	}
 
 	@Override
-	public List<MeetingVO> selectMeetingList(int uno) {
-		List<MeetingVO> list = session.selectList("kr.co.yamanna.dao.MeetingDAO.selectMeetingList",uno);
+	public List<List<Object>> selectMeetingList(int uno) {
+		//전체 리스트
+		List<List<Object>> list = new ArrayList<List<Object>>();
+		
+		List<MeetingVO> meetingList = session.selectList("kr.co.yamanna.dao.MeetingDAO.selectMeetingList",uno);
+		
+		for(MeetingVO vo : meetingList) {
+			List<Object> item = new ArrayList<Object>();
+			
+			int mno = vo.getMno();
+			List<MemberVO> memberList = session.selectList("kr.co.yamanna.dao.MeetingDAO.selectMeetingMemberList", mno);
+			
+			item.add(vo);
+			item.add(memberList);
+			
+			list.add(item);			
+		}
+		
 		return list;
 	}
 }
