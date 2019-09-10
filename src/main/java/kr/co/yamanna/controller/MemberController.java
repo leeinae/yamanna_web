@@ -76,9 +76,11 @@ public class MemberController {
 	}
 	
 	@RequestMapping(value="/friends", method = RequestMethod.GET)
-	public String friends() {
-		System.out.println("호출");
-		return "friendList";
+	public ModelAndView friends(HttpSession session) {
+		List<MemberVO> list = service.viewMemberList(session);
+		ModelAndView mav = new ModelAndView("friendList");
+		mav.addObject("list",list);
+		return mav;
 	}
 	
 	@RequestMapping(value="/searchFriend", method = RequestMethod.POST)
