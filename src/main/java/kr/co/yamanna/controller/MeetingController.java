@@ -143,7 +143,7 @@ public class MeetingController {
 			List<Map<String,Object>> routeList = new ArrayList<>();
 			//도보 시간
 			int runTime = 0;
-			
+			System.out.println(userInfo);
 			for(Map<String,Object> detailInfo : userInfo) {
 				Map<String, Object> route= new HashMap<String, Object>();
 				int no = (Integer) detailInfo.get("trafficType");

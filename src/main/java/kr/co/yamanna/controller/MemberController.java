@@ -78,7 +78,7 @@ public class MemberController {
 	@RequestMapping(value="/friends", method = RequestMethod.GET)
 	public String friends() {
 		System.out.println("호출");
-		return "addFriend";
+		return "friendList";
 	}
 	
 	@RequestMapping(value="/searchFriend", method = RequestMethod.POST)

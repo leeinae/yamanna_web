@@ -54,7 +54,7 @@
 				if(data == false) {
 					alert("이미 친구입니다!");
 				} else {
-					alsert("추가 되었습니다! 만남을 생성해보세요");
+					alert("추가 되었습니다! 만남을 생성해보세요");
 				}
 			},
 			error : function(re, status, error) {

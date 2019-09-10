@@ -287,7 +287,9 @@ var finalStation = [];
 				var resultArr = resultObj["result"]["station"];
 				var resultArrCnt = resultObj["result"]["count"];
 				if(resultArrCnt==0) {
-					alert("지하철이 없습니다");
+					alert("중간 지점을 찾을 수 없습니다.. 가위바위보로 정하세요!");
+					window.location.replace("${pageContext.request.contextPath }/home");
+					
 				} else {
 					var userList =[];
 					<c:set var="members" value="${requestScope.userList }"></c:set>;
@@ -312,7 +314,7 @@ var finalStation = [];
 		//평균소요시간 2차원 배열 선언
 		const userInfo = new Array();
 		//예상 루트 2차원 배열 선언
-		const subPathList = new Array();
+		var subPathList = new Array();
 		for(var i=0; i<user.length; i++) {
 			var userTime = new Array();
 			var userPath = new Array();
@@ -330,7 +332,8 @@ var finalStation = [];
 						userPath[j].push({trafficType : 0, path : "end"});
 						var totalTime = resultArr["info"].totalTime;
   						if (totalTime !="") {
-	 						userTime[j] = (totalTime);
+
+	 						userTime[j] = totalTime;
 							userPath[j].push({trafficType : 4, totalTime : totalTime});
 							userPath[j].unshift({trafficType : 5, userId : user[i].id});
  						}
@@ -338,6 +341,7 @@ var finalStation = [];
 				}
 				userInfo[i] = userTime;
 				subPathList[i] = userPath;
+
 				xhr.open("GET",url, false);
 				xhr.send();
 			}
@@ -345,13 +349,12 @@ var finalStation = [];
 		
 		var resultList = calc(userInfo);
 		var index = resultList[0];
+
 		var min = resultList[1];
 		var subPath = new Array();
-		
 		for (var i=0; i<userInfo.length; i++){
 			subPath[i] = subPathList[i][index];
 		}
-		
 		sendPath(subPath);
 		finalUser = user;
 		finalStation = station[index];
@@ -373,11 +376,17 @@ function calc(dataList) {
 			time += dataList[i][j];
 		}
 		time = time / dataList.length;
-		avgList.push(time);
+		if (!isNaN(time)) {
+			avgList.push(time);			
+		} else {
+			avgList.push(10000);
+		};
 	}
   	//배열 최소값 구하기
-	var min = Math.min.apply(null, avgList);
-
+	var min = avgList.reduce(function(prev, curr) {
+		return prev > curr ? curr : prev;
+	});
+  	
 	return [avgList.indexOf(min), min];
 }
 
