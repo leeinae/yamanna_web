@@ -38,19 +38,19 @@
 			</thead>
 			
 			<c:forEach items="${requestScope.list }" var="list">
-				<tr>
-					<td>${list[0].mname }</td>
-					<td>${list[0].mdate }</td>
-					<td>${list[0].pname }</td>
-					<td>
-						<c:forEach items="${list[1] }" var="member" varStatus="index">
-							${member.nickname }
-							<c:if test="${!index.last }">
-								,
-							</c:if>
-						</c:forEach>
-					</td>
-				</tr>
+					<tr>
+						<td><a href="/meeting/${list[0].mno }">${list[0].mname }</a></td>
+						<td>${list[0].mdate }</td>
+						<td>${list[0].pname }</td>
+						<td>
+							<c:forEach items="${list[1] }" var="member" varStatus="index">
+								${member.nickname }
+								<c:if test="${!index.last }">
+									,
+								</c:if>
+							</c:forEach>
+						</td>
+					</tr>
 			</c:forEach>			
 		</table>
 	</c:otherwise>

@@ -37,6 +37,18 @@ public class MeetingServiceImpl implements MeetingService {
 		List<List<Object>> list = meetingDao.selectMeetingList(uno);
 		return list;
 	}
+
+	@Override
+	public MeetingVO selectMeetingDetailInfo(int mno) {
+		MeetingVO vo = meetingDao.selectMeetingDetailInfo(mno);
+		return vo;
+	}
+
+	@Override
+	public List<MemberVO> selectMeetingMember(int mno) {
+		List<MemberVO> list = meetingDao.selectMeetingMember(mno);
+		return list;
+	}
 	
 
 }

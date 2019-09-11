@@ -55,7 +55,7 @@ function loadMap(x, y) {
 		var map = new kakao.maps.Map(container, options);
 		
 		var imgSrc = '/resources/img/location.png', // 마커이미지의 주소입니다    
-	    imgSize = new kakao.maps.Size(64, 69), // 마커이미지의 크기입니다
+	    imgSize = new kakao.maps.Size(53, 58), // 마커이미지의 크기입니다
 	    imgOption = {offset: new kakao.maps.Point(27, 69)}; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다 
 		
 		var markerImg = new kakao.maps.MarkerImage(imgSrc, imgSize, imgOption),

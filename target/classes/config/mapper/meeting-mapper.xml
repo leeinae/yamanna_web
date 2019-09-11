@@ -22,4 +22,12 @@
 	<select id="selectMeetingMemberList" resultType="MemberVO" parameterType="int">
 		select id, nickname from user_info where uno in (select uno from meeting_relation where mno=#{mno})
 	</select>
+	
+	<select id="selectMeetingDetailInfo" resultType="MeetingVO" parameterType="int">
+		select mno, xpos, ypos, TO_CHAR(mdate,'YYYY-MM-DD') as mdate, mname, pname, pphone, praddr, paddr, url from meeting where mno=#{mno}
+	</select>
+	
+	<select id="selectMeetingMember" parameterType="int" resultType="MemberVO">
+		select id, nickname from user_info where uno in (select uno from meeting_relation where mno = #{mno})
+	</select>
 </mapper>

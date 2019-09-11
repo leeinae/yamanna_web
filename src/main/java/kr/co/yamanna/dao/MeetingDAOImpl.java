@@ -56,4 +56,18 @@ public class MeetingDAOImpl implements MeetingDAO {
 		
 		return list;
 	}
+
+	@Override
+	public MeetingVO selectMeetingDetailInfo(int mno) {
+		MeetingVO vo = session.selectOne("kr.co.yamanna.dao.MeetingDAO.selectMeetingDetailInfo", mno);
+		return vo;
+	}
+
+	@Override
+	public List<MemberVO> selectMeetingMember(int mno) {
+		List<MemberVO> list = session.selectList("kr.co.yamanna.dao.MeetingDAO.selectMeetingMember",mno);
+		return list;
+	}
+	
+	
 }

@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import kr.co.yamanna.vo.MeetingVO;
+import kr.co.yamanna.vo.MemberVO;
 
 public interface MeetingDAO {
 	//최종 미팅 결정 장소
@@ -14,4 +15,8 @@ public interface MeetingDAO {
 	public void insertMeetingRelation(Map<String, Object> map);
 	//내가 속한 meeting List 받아오기
 	public List<List<Object>> selectMeetingList(int uno);
+	//미팅 상세정보 얻기
+	public MeetingVO selectMeetingDetailInfo(int mno);
+	//미팅 참여 멤버 얻기
+	public List<MemberVO> selectMeetingMember(int mno);
 }

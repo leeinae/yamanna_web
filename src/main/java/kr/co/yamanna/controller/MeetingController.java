@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -219,4 +220,20 @@ public class MeetingController {
 		return result;
 	}
 	
+	@RequestMapping(value="meeting/{id}", method=RequestMethod.GET)
+	public ModelAndView detailMeeting(@PathVariable int id) {
+		System.out.println("미팅 상세정보 페이지 "+id);
+		
+		ModelAndView mav = new ModelAndView("detailMeeting");
+		
+		MeetingVO vo = meetingService.selectMeetingDetailInfo(id);
+		List<MemberVO> list = meetingService.selectMeetingMember(id);
+		System.out.println(vo);
+		System.out.println(list);
+		
+		mav.addObject("meeting",vo);
+		mav.addObject("member",list);
+		
+		return mav;
+	}
 }
