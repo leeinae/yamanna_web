@@ -1,7 +1,10 @@
 package kr.co.yamanna.vo;
 
+import javax.validation.constraints.NotEmpty;
+
 public class MemberVO {
 	private int uno;
+	@NotEmpty(message="id는 필수항목입니다.")
 	private String id;
 	private String pw;
 	private String email;
