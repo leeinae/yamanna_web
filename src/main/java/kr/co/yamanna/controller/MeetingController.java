@@ -236,4 +236,22 @@ public class MeetingController {
 		
 		return mav;
 	}
+	
+	@RequestMapping(value="/myMeeting" ,method=RequestMethod.GET)
+	public ModelAndView showMyMeeting(HttpSession session) {
+		ModelAndView mav = new ModelAndView();
+		if(session.getAttribute("userId")!=null) {
+			int uno = (int) session.getAttribute("userNo");
+			List<List<Object>> meetingList = meetingService.selectMeetingList(uno);
+			System.out.println(meetingList);
+			
+			mav.setViewName("myMeeting");
+			mav.addObject("msg","success");
+			mav.addObject("list",meetingList);
+		} else {
+			mav.setViewName("login");
+		}
+
+		return mav;
+	}
 }

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -12,7 +13,7 @@
         <div class="row align-items-center">
           <div class="col-lg-12">
             <nav class="navbar navbar-expand-lg navbar-light">
-              <a class="navbar-brand" href="index.html">
+              <a class="navbar-brand" href="${pageContext.request.contextPath }/home">
                 <img src="resources/img/logo.png" alt="logo" />
               </a>
               <button
@@ -33,16 +34,16 @@
               >
                 <ul class="navbar-nav align-items-center">
                   <li class="nav-item">
-                    <a class="nav-link" href="index.html">Home</a>
+                    <a class="nav-link" href="${pageContext.request.contextPath }/myMeeting">내 모임</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="about.html">내 모임</a>
+                    <a class="nav-link" href="${pageContext.request.contextPath }/meeting">모임 생성</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="services.html">모임 생성</a>
+                    <a class="nav-link" href="${pageContext.request.contextPath }/friends">친구 관리</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="blog.html">내 친구</a>
+                    <a class="nav-link" href="contact.html">내 위치 변경</a>
                   </li>
                   <li class="nav-item">
                     <a class="nav-link" href="contact.html">About</a>
@@ -50,11 +51,16 @@
                 </ul>
               </div>
               <div class="social_icon d-none d-lg-block">
-              	<a>로그인</a>
-                <a href="#"><i class="ti-facebook"></i></a>
-                <a href="#"><i class="ti-twitter-alt"></i></a>
-                <a href="#"><i class="ti-dribbble"></i></a>
-                <a href="#"><i class="ti-instagram"></i></a>
+              	<c:choose>
+					<c:when test="${sessionScope.userId == null }">
+						<a href="${pageContext.request.contextPath }/login">로그인</a>
+						<a href="${pageContext.request.contextPath }/signup">회원가입</a>
+					</c:when>
+					<c:otherwise>
+					${sessionScope.userName }님, 환영합니다!
+						<a href="${pageContext.request.contextPath }/logout">로그아웃</a><br>
+				    </c:otherwise>
+    			</c:choose>
               </div>
             </nav>
           </div>

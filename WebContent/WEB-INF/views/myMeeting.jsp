@@ -26,9 +26,6 @@
 <link rel="stylesheet" href="resources/css/slick.css" />
 <!-- style CSS -->
 <link rel="stylesheet" href="resources/css/style.css" />
-<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 </head>
 
 <body>
@@ -44,8 +41,8 @@
 			<div class="row align-items-center justify-content-between">
 				<div class="col-sm-6">
 					<div class="breadcrumb_tittle">
-						<p>친구를 선택해 모임을 생성하세요!</p>
-						<h2>모임 생성</h2>
+						<p>내가 속한 모임</p>
+						<h2>My Meeting</h2>
 					</div>
 				</div>
 			</div>
@@ -54,43 +51,30 @@
 	<!-- breadcrumb start-->
 
 	<!-- our_service start-->
-	<section class="sample-text-area">
-		<div class="container box_1170">
-				<form id="fridenForm"
-					action="${pageContext.request.contextPath }/createMeeting"
-					method="post">
-					<h3 class="text-heading">미팅 이름</h3>
-					<div class="mt-10">
-						<input type="text" name="meetName" 
-						 placeholder="야만나" onfocus="this.placeholder = ''" onblur="this.placeholder = '야만나'"
-							onfocus="this.value=''" required class="single-input"/>					
-					</div>
-					<br>
-					<h3 class="text-heading">날짜 선택</h3>
-					<input type="text" id="datepicker" name="date" required class="single-input">
-					<script>
-						$("#datepicker").datepicker({
-							minDate : 0,
-							dateFormat : 'yy-mm-dd'
-						});
-					</script>
-					<br><br>
-					<h3 class="text-heading">친구 선택</h3>
-						<div class="col-lg-3 col-md-8">
-							<c:forEach items="${requestScope.list }" var="user">
-								<div class="switch-wrap d-flex justify-content-between">
-									<p>id : ${user.id }, nickname : ${user.nickname }</p>
-									<div class="confirm-checkbox">
-										<input type="checkbox" name="friend" value="${user.id }"
-											id="${user.id }">
-										<label for="${user.id }"></label>
-									</div>
-								</div>
-							</c:forEach>
+	<section class="our_service">
+		<div class="container">
+
+			<div class="row">
+				<c:forEach items="${requestScope.list }" var="list">
+					<div class="col-sm-6 col-xl-4">
+						<div class="single_feature">
+							<div class="single_service">
+								<span>${list[0].mdate }</span>
+								<h4>${list[0].mname }</h4>
+								<p>${list[0].pname }</p>
+								<c:forEach items="${list[1] }" var="member" varStatus="index">
+			            ${member.nickname }
+						<c:if test="${!index.last }">
+							,
+						</c:if>
+								</c:forEach>
+								<br> <br> <a href="/meeting/${list[0].mno }"
+									class="genric-btn primary circle">더보기</a>
+							</div>
 						</div>
-					<br>
-					<button type="submit" class="genric-btn primary circle e-large">장소 찾기</button>
-				</form>
+					</div>
+				</c:forEach>
+			</div>
 		</div>
 	</section>
 	<!-- our_service part end-->

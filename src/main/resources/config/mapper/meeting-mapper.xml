@@ -16,7 +16,7 @@
 	</insert>
 	
 	<select id="selectMeetingList" resultType="MeetingVO" parameterType="int">
-		select mid, mno, TO_CHAR(mdate,'YYYY-MM-DD') as mdate, mname, pname from meeting where mno in (select mno from meeting_relation where uno=#{uno}) order by mdate
+		select mid, mno, TO_CHAR(mdate,'YYYY-MM-DD') as mdate, mname, pname from meeting where mno in (select mno from meeting_relation where uno=#{uno})
 	</select>
 	
 	<select id="selectMeetingMemberList" resultType="MemberVO" parameterType="int">
