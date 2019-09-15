@@ -112,6 +112,22 @@
 	}
 
 </script>
+<style>
+	.user {
+		padding: 20px 20px;
+	    background: #fbf9ff;
+	    margin-top: 10px;
+	    display: flex;
+	}
+	
+	.user img {
+		width: 50px;
+	    height: 50px;
+	    border-radius: 50%;
+	    margin-right: 30px;
+	}
+</style>
+
 </head>
 
 <body>
@@ -140,21 +156,36 @@
 	<section class="sample-text-area">
 		<div class="container box_1170">
 			<h2>친구 목록</h2><br>
-			<c:forEach items="${requestScope.list }" var="user">
-				<h3>아이디 : "${user.id }", 닉네임 : "${user.nickname}"</h3>
-			</c:forEach><br>
+			<div>
+				<c:forEach items="${requestScope.list }" var="user">
+					<div class="user col-sm-6">
+						<img src="resources/img/user.png" alt="">
+						<div class="userInfo">
+							<h3>${user.id }</h3>
+							<p>${user.nickname}</p>
+						</div>
+					</div>
+				</c:forEach>
+				<br>
+			</div>
 			<button id="btn" onClick="btnClick()" class="genric-btn primary circle large">친구 추가</button>
-			
+
 			<div id="modal">
 				<div id="modal-content">
 					<span class="close" onClick="spanClick()">&times;</span>
 					<h2>친구 ID 검색</h2>
 					
-					<span>
-						<input type="text" id="id" name="id" placeholder="ID를 입력하세요" onfocus="this.placeholder = ''" onblur="this.placeholder = 'ID를 입력하세요'"
-							required class="single-input col-md-8">
-						<button id="search" onClick="sendForm()" class="genric-btn primary-border circle small">검색</button>					
-					</span>
+					<table>
+						<tr>
+							<td width="75%">
+								<input type="text" id="id" name="id" placeholder="ID를 입력하세요" onfocus="this.placeholder = ''" onblur="this.placeholder = 'ID를 입력하세요'"
+									required class="single-input">						
+							</td>
+							<td>
+								<button id="search" onClick="sendForm()" class="genric-btn primary-border circle small">검색</button>											
+							</td>
+						</tr>
+					</table>					
 					
 					<div id="friendDiv">
 					</div>

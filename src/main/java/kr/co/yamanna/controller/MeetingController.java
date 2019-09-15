@@ -220,7 +220,7 @@ public class MeetingController {
 		return result;
 	}
 	
-	@RequestMapping(value="meeting/{id}", method=RequestMethod.GET)
+	@RequestMapping(value="/meeting/{id}", method=RequestMethod.GET)
 	public ModelAndView detailMeeting(@PathVariable int id) {
 		System.out.println("미팅 상세정보 페이지 "+id);
 		

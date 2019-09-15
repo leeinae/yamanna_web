@@ -6,6 +6,11 @@
 <head>
 <meta charset="euc-kr">
 </head>
+<style>
+	.social_icon{
+		color : white;
+	}
+</style>
 <body>
     <!--::header part start::-->
     <header class="main_menu home_menu">
@@ -14,7 +19,7 @@
           <div class="col-lg-12">
             <nav class="navbar navbar-expand-lg navbar-light">
               <a class="navbar-brand" href="${pageContext.request.contextPath }/home">
-                <img src="resources/img/logo.png" alt="logo" />
+                <img src="/resources/img/logo.png" alt="logo" width="150px" height="50px"/>
               </a>
               <button
                 class="navbar-toggler"
@@ -43,10 +48,10 @@
                     <a class="nav-link" href="${pageContext.request.contextPath }/friends">친구 관리</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="contact.html">내 위치 변경</a>
+                    <a class="nav-link" href="${pageContext.request.contextPath }/myPage">내 위치 변경</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="contact.html">About</a>
+                    <a class="nav-link" href="${pageContext.request.contextPath }/about">About</a>
                   </li>
                 </ul>
               </div>

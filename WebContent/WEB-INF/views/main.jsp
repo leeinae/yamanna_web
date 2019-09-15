@@ -11,7 +11,6 @@
       content="width=device-width, initial-scale=1, shrink-to-fit=no"
     />
     <title>Yamanna</title>
-    <link rel="icon" href="resources/img/favicon.png" />
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="resources/css/bootstrap.min.css" />
     <!-- animate CSS -->
@@ -71,10 +70,10 @@
                 <img src="resources/img/logo/kakaoLogo.png" alt="" />
               </div>
               <div class="single_client_logo">
-                <img src="resources/img/logo/Logo3.png" alt="" />
+                <img src="resources/img/sang.jpg" alt="" />
               </div>
               <div class="single_client_logo">
-                <img src="resources/img/logo/Logo4.png" alt="" />
+                <img src="resources/img/daum_map.png" alt="" height="150px"/>
               </div>
             </div>
           </div>
@@ -103,12 +102,14 @@
 									<span>${list[0].mdate }</span>
 									<h4>${list[0].mname }</h4>
 									<p>${list[0].pname }</p>
-									<c:forEach items="${list[1] }" var="member" varStatus="index">
-			            ${member.nickname }
-						<c:if test="${!index.last }">
-							,
-						</c:if>
-									</c:forEach>
+									<h5>
+										<c:forEach items="${list[1] }" var="member" varStatus="index">
+								            ${member.nickname }
+											<c:if test="${!index.last }">
+												,
+											</c:if>
+										</c:forEach>
+									</h5>
 									<br>
 									<br> <a href="/meeting/${list[0].mno }"
 										class="genric-btn primary circle">더보기</a>

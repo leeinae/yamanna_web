@@ -45,4 +45,16 @@ public class MainController {
 
 		return mav;
 	}
+	
+	@RequestMapping(value = "/about", method = RequestMethod.GET)
+	public String about() {
+	
+		return "about";
+	}
+	
+	@RequestMapping(value = "/myPage", method = RequestMethod.GET)
+	public String myPage() {
+		
+		return "myPage";
+	}
 }

@@ -62,12 +62,14 @@
 								<span>${list[0].mdate }</span>
 								<h4>${list[0].mname }</h4>
 								<p>${list[0].pname }</p>
-								<c:forEach items="${list[1] }" var="member" varStatus="index">
-			            ${member.nickname }
-						<c:if test="${!index.last }">
-							,
-						</c:if>
-								</c:forEach>
+									<h5>
+										<c:forEach items="${list[1] }" var="member" varStatus="index">
+								            ${member.nickname }
+											<c:if test="${!index.last }">
+												,
+											</c:if>
+										</c:forEach>
+									</h5>
 								<br> <br> <a href="/meeting/${list[0].mno }"
 									class="genric-btn primary circle">더보기</a>
 							</div>

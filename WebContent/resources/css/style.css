@@ -310,7 +310,7 @@ a:focus, .button:focus, button:focus, .btn:focus {
 /* line 173, /Applications/MAMP/htdocs/palash/cl/july 2019/192 Agency/192 Agency html/sass/_common.scss */
 .section_tittle p {
   font-size: 16px;
-  color: #00d089;
+  color: darkorange;
   text-transform: capitalize;
   margin-bottom: 15px;
 }
@@ -485,9 +485,9 @@ ul {
 .btn_1 {
   display: inline-block;
   padding: 27px 70px;
-  background-color: #00d089;
+  background-color: black;
   font-size: 14px;
-  color: #fff;
+  color: white;
   -webkit-transition: 0.5s;
   transition: 0.5s;
   text-transform: capitalize;
@@ -498,8 +498,8 @@ ul {
 
 /* line 35, /Applications/MAMP/htdocs/palash/cl/july 2019/192 Agency/192 Agency html/sass/_button.scss */
 .btn_1:hover {
-  color: #fff !important;
-  background-color: #0042ff;
+  color: darkorange !important;
+  background-color: white;
 }
 
 @media (max-width: 576px) {
@@ -2139,6 +2139,7 @@ ul {
   top: 0;
   width: 100%;
   z-index: 99;
+  background-color : black;
 }
 
 /* line 7, /Applications/MAMP/htdocs/palash/cl/july 2019/192 Agency/192 Agency html/sass/_menu.scss */
@@ -2179,12 +2180,12 @@ ul {
 
 /* line 34, /Applications/MAMP/htdocs/palash/cl/july 2019/192 Agency/192 Agency html/sass/_menu.scss */
 .main_menu .main-menu-item ul li .nav-link {
-  color: #fff;
+  color: white;
   font-size: 15px;
   padding: 40px 24px;
   font-family: "Open Sans", sans-serif;
   text-transform: capitalize;
-  line-height: 15px;
+  line-height: 18px;
   position: relative;
   z-index: 1;
 }
@@ -2204,7 +2205,7 @@ ul {
   bottom: 30px;
   width: 0;
   height: 1px;
-  background-color: #00d089;
+  background-color: darkorange;
   -webkit-transition: 0.5s;
   transition: 0.5s;
 }
@@ -2338,7 +2339,7 @@ ul {
   position: fixed;
   z-index: 9999 !important;
   width: 100%;
-  background-color: #00d089;
+  background-color: black;
   box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.05);
   top: 0;
 }
@@ -2349,7 +2350,7 @@ ul {
   height: 800px;
   position: relative;
   overflow: hidden;
-  background-image: url(../img/banner_img.png);
+  background-image: url(../img/agreement.jpg);
   background-repeat: no-repeat;
   background-size: content;
   background-position: center;
@@ -2364,9 +2365,9 @@ ul {
   top: 0;
   width: 100%;
   height: 100%;
-  background-color: #0042ff;
+  background-color: darkorange;
   z-index: -1;
-  opacity: .7;
+  opacity: .8;
 }
 
 @media (max-width: 991px) {
@@ -2652,7 +2653,7 @@ ul {
   font-size: 16px;
   margin-bottom: 21px;
   display: inline-block;
-  color: #00d089;
+  color: orangered;
   line-height: 16px;
   font-weight: 700;
 }
@@ -2698,13 +2699,19 @@ ul {
 
 /* line 116, /Applications/MAMP/htdocs/palash/cl/july 2019/192 Agency/192 Agency html/sass/_our_service.scss */
 .our_service .single_service:hover {
-  background-color: #0042ff;
+  background-color: darkorange;
 }
 
 /* line 118, /Applications/MAMP/htdocs/palash/cl/july 2019/192 Agency/192 Agency html/sass/_our_service.scss */
 .our_service .single_service:hover h4 {
   color: #fff;
 }
+
+/* line 118, /Applications/MAMP/htdocs/palash/cl/july 2019/192 Agency/192 Agency html/sass/_our_service.scss */
+.our_service .single_service:hover h5 {
+  color: #fff;
+}
+
 
 /* line 121, /Applications/MAMP/htdocs/palash/cl/july 2019/192 Agency/192 Agency html/sass/_our_service.scss */
 .our_service .single_service:hover p {
@@ -4511,21 +4518,21 @@ h6 {
 /* line 217, /Applications/MAMP/htdocs/palash/cl/july 2019/192 Agency/192 Agency html/sass/_elements.scss */
 .genric-btn.primary {
   color: #fff;
-  background: #00d089;
+  background: black;
   border: 1px solid transparent;
 }
 
 /* line 221, /Applications/MAMP/htdocs/palash/cl/july 2019/192 Agency/192 Agency html/sass/_elements.scss */
 .genric-btn.primary:hover {
-  color: #00d089;
-  border: 1px solid #00d089;
+  color: darkorange;
+  border: 1px solid darkorange;
   background: #fff;
 }
 
 /* line 227, /Applications/MAMP/htdocs/palash/cl/july 2019/192 Agency/192 Agency html/sass/_elements.scss */
 .genric-btn.primary-border {
   color: #00d089;
-  border: 1px solid #00d089;
+  border: 1px solid darkorange;
   background: #fff;
 }
 
@@ -5265,6 +5272,7 @@ h6 {
   background: #f9f9ff;
   position: relative;
   cursor: pointer;
+  margin: 29px 0px;
 }
 
 /* line 813, /Applications/MAMP/htdocs/palash/cl/july 2019/192 Agency/192 Agency html/sass/_elements.scss */

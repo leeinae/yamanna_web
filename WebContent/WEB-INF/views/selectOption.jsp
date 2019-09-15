@@ -29,6 +29,22 @@
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<style>
+	.user {
+		padding: 20px 20px;
+	    background: orange;
+	    margin-top: 10px;
+	    display: flex;
+	    border-radius: 20px;
+	}
+	
+	.user img {
+		width: 60px;
+	    height: 60px;
+	    border-radius: 50%;
+	    margin: 0px 20px;
+	}
+</style>
 </head>
 
 <body>
@@ -77,16 +93,23 @@
 					<br><br>
 					<h3 class="text-heading">친구 선택</h3>
 						<div class="col-lg-3 col-md-8">
-							<c:forEach items="${requestScope.list }" var="user">
-								<div class="switch-wrap d-flex justify-content-between">
-									<p>id : ${user.id }, nickname : ${user.nickname }</p>
-									<div class="confirm-checkbox">
-										<input type="checkbox" name="friend" value="${user.id }"
-											id="${user.id }">
-										<label for="${user.id }"></label>
+							<div>
+								<c:forEach items="${requestScope.list }" var="user">
+									<div class="user">
+											<div class="confirm-checkbox">
+												<input type="checkbox" name="friend" value="${user.id }"
+													id="${user.id }">
+												<label for="${user.id }"></label>
+											</div>
+										<img src="resources/img/user.png" alt="">
+										<div class="userInfo">
+											<h3>${user.id }</h3>
+											<p>${user.nickname}</p>
+										</div>
 									</div>
-								</div>
-							</c:forEach>
+								</c:forEach>
+								<br>
+							</div>
 						</div>
 					<br>
 					<button type="submit" class="genric-btn primary circle e-large">장소 찾기</button>
