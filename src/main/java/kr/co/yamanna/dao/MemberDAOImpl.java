@@ -73,6 +73,12 @@ public class MemberDAOImpl implements MemberDAO {
 		int no = session.selectOne("kr.co.yamanna.dao.MemberDAO.selectUno", id);
 		return no;
 	}
+
+	@Override
+	public int vaildUserInfo(String id) {
+		int no = session.selectOne("kr.co.yamanna.dao.MemberDAO.vaildUserInfo", id);
+		return no;
+	}
 	
 	
 

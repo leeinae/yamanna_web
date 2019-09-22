@@ -33,4 +33,7 @@ public interface MemberDAO {
 	
 	//친구 번호 조회
 	public int selectUno(String id);
+	
+	//id 중복 체크
+	public int vaildUserInfo(String id);
 }

@@ -70,7 +70,7 @@
 											</c:if>
 										</c:forEach>
 									</h5>
-								<br> <br> <a href="/meeting/${list[0].mno }"
+								<br> <br> <a href="meeting/${list[0].mno }"
 									class="genric-btn primary circle">더보기</a>
 							</div>
 						</div>

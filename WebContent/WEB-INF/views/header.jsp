@@ -19,7 +19,7 @@
           <div class="col-lg-12">
             <nav class="navbar navbar-expand-lg navbar-light">
               <a class="navbar-brand" href="${pageContext.request.contextPath }/home">
-                <img src="/resources/img/logo.png" alt="logo" width="150px" height="50px"/>
+                <img src="http://3.19.175.56:8080/Yamanna/resources/img/logo.png" alt="logo" width="150px" height="50px"/>
               </a>
               <button
                 class="navbar-toggler"

@@ -29,13 +29,15 @@
 <link rel="stylesheet" href="resources/css/style.css" />
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=b3679426da0622856631417624335749&libraries=services"></script>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-<link rel="stylesheet" type="text/css" href="/resources/css/kakaoMap.css">
+<link rel="stylesheet" type="text/css" href="resources/css/kakaoMap.css">
 <style>
-	#user {
+	.user {
 		padding: 20px 20px;
 	    background: orange;
 	    margin-top: 10px;
 	    border-radius: 20px;
+	    opacity: 0.8;
+	    width:50%;
 	}
 	
 	#placeInfo {
@@ -50,7 +52,7 @@ function showLoadingBar() {
 	var mask = '<div id="mask" style="position:absolute; z-index:9000; background-color:#000000; display:none; left:0; top:0;"></div>'; 
 	var loadingImg = ''; 
 	loadingImg += '<div id="loadingImg" style="position:absolute; left:50%; top:40%; display:none; z-index:10000;">';
-	loadingImg += "<img src='/resources/img/loading.gif'/>";
+	loadingImg += "<img src='resources/img/loading.gif'/>";
 	loadingImg += "</div>"; 
 	
   	$('#Body').append(mask).append(loadingImg);
@@ -86,7 +88,7 @@ function loadMap(x, y) {
 		
 		var map = new kakao.maps.Map(container, options);
 		
-		var imgSrc = '/resources/img/location.png', // 마커이미지의 주소입니다    
+		var imgSrc = 'resources/img/location.png', // 마커이미지의 주소입니다    
 	    imgSize = new kakao.maps.Size(53, 58), // 마커이미지의 크기입니다
 	    imgOption = {offset: new kakao.maps.Point(27, 69)}; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다 
 		
@@ -240,7 +242,7 @@ function loadMap(x, y) {
 		    }
 		    output += '<h4 class="tel">' + place.phone + '</h4>';
 		    output += '<h4><a href="' + place.place_url + '" target="_blank" title="' + place.place_name + '">더보기</a></h4>';
-		    output += '<input type="button" value="야만나" onclick="confirmPlace(finalUser, placeInfo)">';
+		    output += '<input type="button" value="야만나" class="genric-btn primary circle e-large" onclick="confirmPlace(finalUser, placeInfo)">';
 		    output += '</div>';
 		    
 		    var textarea = $("#placeInfo");
@@ -305,7 +307,7 @@ var finalStation = [];
 		var middleX = ${requestScope.middlePoint.xpos }
 		var middleY = ${requestScope.middlePoint.ypos }
 		var xhr = new XMLHttpRequest();
-		var url = "https://api.odsay.com/v1/api/pointSearch?apiKey=ohO488CvUmCEUaxjQ9eaKqHZ3TXyT7LJZbQt/2qM2Lw&lang=0&x="+middleX+"&y="+middleY+"&radius=1500&stationClass=2";
+		var url = "https://api.odsay.com/v1/api/pointSearch?apiKey=API키값&lang=0&x="+middleX+"&y="+middleY+"&radius=1500&stationClass=2";
 		xhr.open("GET",url, true);
 		xhr.send();
 		xhr.onreadystatechange = function() {
@@ -314,9 +316,8 @@ var finalStation = [];
 				var resultArr = resultObj["result"]["station"];
 				var resultArrCnt = resultObj["result"]["count"];
 				if(resultArrCnt==0) {
-					alert("중간 지점을 찾을 수 없습니다.. 가위바위보로 정하세요!");
-					window.location.replace("${pageContext.request.contextPath }/home");
-					
+					//중간 지하철 없을 때 처리
+					/* window.location.replace("${pageContext.request.contextPath }/home"); */
 				} else {
 					var userList =[];
 					<c:set var="members" value="${requestScope.userList }"></c:set>;
@@ -347,7 +348,7 @@ var finalStation = [];
 			var userPath = new Array();
 			for(var j=0; j<station.length; j++) {
 				var xhr = new XMLHttpRequest();
-				var url = "https://api.odsay.com/v1/api/searchPubTransPathR?apiKey=ohO488CvUmCEUaxjQ9eaKqHZ3TXyT7LJZbQt/2qM2Lw&lang=0"+
+				var url = "https://api.odsay.com/v1/api/searchPubTransPathR?apiKey=오딧세이 키 값&lang=0"+
 						"&SX="+ user[i].xpos+"&SY="+user[i].ypos
 						+"&EX="+station[j].x+"&EY="+station[j].y+"&OPT=3";
 

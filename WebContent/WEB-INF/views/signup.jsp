@@ -28,7 +28,7 @@
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=b3679426da0622856631417624335749&libraries=services"></script>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=카카오 키 값&libraries=services"></script>
 <script>
 var map;
 var container;
@@ -81,9 +81,29 @@ $(document).ready(function() {
         }).open();
     }
     
-    function signUp() {
-    	alert("클릭햇긔");
-    }
+</script>
+<script>
+	function idCheck() {
+		var id = $("#userId").val();
+		$.ajax({
+			async : true,
+			type : "POST",
+			data : id,
+			url : "${pageContext.request.contextPath}/check",
+			dataType:"json",
+			contentType: "application/json; charset=UTF-8",
+			success : function(data){
+				if(data.cnt != 0 ){
+					alert("이미 존재하는 id 입니다.");
+				} else {
+					alert("사용가능한 id 입니다.");
+				}
+			},
+			error : function(error){
+				alert("error : " + error);
+			}
+		})
+	}
 </script>
 <style>
 	.user {
@@ -131,9 +151,10 @@ $(document).ready(function() {
 					method="POST" action="${pageContext.request.contextPath }/signup">
 					<h3 class="text-heading">기본 정보</h3>
 					<div class="mt-10">
-						<input type="text" name="id" 
+						<input type="text" name="id" id="userId"
 						 placeholder="아이디" onfocus="this.placeholder = ''" onblur="this.placeholder = '아이디'"
-							onfocus="this.value=''" required class="single-input"/>					
+							onfocus="this.value=''" required class="single-input"/>	
+						<button type="button" onclick="idCheck()" class="genric-btn primary circle small">중복 체크</button>				
 						<input type="password" name="pw" 
 						 placeholder="비밀번호" onfocus="this.placeholder = ''" onblur="this.placeholder = '비밀번호'"
 							onfocus="this.value=''" required class="single-input"/>					

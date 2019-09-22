@@ -10,6 +10,10 @@
 		user_info(uno, id, pw, email, nickname, xpos, ypos, addr)
 		values(user_uno_seq.nextVal, #{id}, #{pw}, #{email}, #{nickname}, #{xpos}, #{ypos}, #{addr})
 	</insert>
+	
+	<select id="vaildUserInfo" parameterType="String" resultType="int">
+		select count(*) from user_info where id=#{id}
+	</select>
 
 	<select id="loginCheck" resultType="String" parameterType="memberVO">
 		select nickname

@@ -10,23 +10,23 @@
 	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 <title>Yamanna</title>
 <!-- Bootstrap CSS -->
-<link rel="stylesheet" href="/resources/css/bootstrap.min.css" />
+<link rel="stylesheet" href="http://3.19.175.56:8080/Yamanna/resources/css/bootstrap.min.css" />
 <!-- animate CSS -->
-<link rel="stylesheet" href="/resources/css/animate.css" />
+<link rel="stylesheet" href="http://3.19.175.56:8080/Yamanna/resources/css/animate.css" />
 <!-- owl carousel CSS -->
-<link rel="stylesheet" href="/resources/css/owl.carousel.min.css" />
+<link rel="stylesheet" href="http://3.19.175.56:8080/Yamanna/resources/css/owl.carousel.min.css" />
 <!-- themify CSS -->
-<link rel="stylesheet" href="/resources/css/themify-icons.css" />
+<link rel="stylesheet" href="http://3.19.175.56:8080/Yamanna/resources/css/themify-icons.css" />
 <!-- flaticon CSS -->
-<link rel="stylesheet" href="/resources/css/flaticon.css" />
+<link rel="stylesheet" href="http://3.19.175.56:8080/Yamanna/resources/css/flaticon.css" />
 <!-- font awesome CSS -->
-<link rel="stylesheet" href="/resources/css/magnific-popup.css" />
+<link rel="stylesheet" href="http://3.19.175.56:8080/Yamanna/resources/css/magnific-popup.css" />
 <!-- swiper CSS -->
-<link rel="stylesheet" href="/resources/css/slick.css" />
+<link rel="stylesheet" href="http://3.19.175.56:8080/Yamanna/resources/css/slick.css" />
 <!-- style CSS -->
-<link rel="stylesheet" href="/resources/css/style.css" />
+<link rel="stylesheet" href="http://3.19.175.56:8080/Yamanna/resources/css/style.css" />
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=b3679426da0622856631417624335749&libraries=services"></script>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=카카오 키값&libraries=services"></script>
 <style>
 	.user {
 		padding: 20px 20px;
@@ -57,7 +57,7 @@ $(document).ready(function() {
 	}
 	map = new kakao.maps.Map(container, options);
 	
-	var imgSrc = '/resources/img/location.png', // 마커이미지의 주소입니다    
+	var imgSrc = 'http://3.19.175.56:8080/Yamanna/resources/img/location.png', // 마커이미지의 주소입니다    
     imgSize = new kakao.maps.Size(53, 58), // 마커이미지의 크기입니다 
     imgOption = {offset: new kakao.maps.Point(27, 69)}; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다 
 	
@@ -108,7 +108,7 @@ $(document).ready(function() {
 			<div>
 				<c:forEach items="${requestScope.member }" var="user">
 					<div class="user col-sm-6">
-						<img src="resources/img/user.png" alt="">
+						<img src="http://3.19.175.56:8080/Yamanna/resources/img/user.png" alt="">
 						<div class="userInfo">
 							<h3>${user.id }</h3>
 							<p>${user.nickname}</p>
@@ -135,7 +135,7 @@ $(document).ready(function() {
 			<div class="row justify-content-between">
 				<div class="col-sm-6 col-md-3 col-xl-3">
 					<div class="single-footer-widget footer_1">
-						<a href="index.html"> <img src="resources/img/footer_logo.png"
+						<a href="index.html"> <img src="http://3.19.175.56:8080/Yamanna/resources/img/footer_logo.png"
 							alt="" />
 						</a>
 						<ul>
@@ -215,19 +215,19 @@ $(document).ready(function() {
 	<!-- footer part end-->
 
 	<!-- jquery plugins here-->
-	<script src="/resources/js/jquery-1.12.1.min.js"></script>
+	<script src="http://3.19.175.56:8080/Yamanna/resources/js/jquery-1.12.1.min.js"></script>
 	<!-- popper js -->
-	<script src="/resources/js/popper.min.js"></script>
+	<script src="http://3.19.175.56:8080/Yamanna/resources/js/popper.min.js"></script>
 	<!-- bootstrap js -->
-	<script src="/resources/js/bootstrap.min.js"></script>
+	<script src="http://3.19.175.56:8080/Yamanna/resources/js/bootstrap.min.js"></script>
 	<!-- easing js -->
 	<script src="/resources/js/jquery.magnific-popup.js"></script>
 	<!-- isotope js -->
-	<script src="/resources/js/isotope.pkgd.min.js"></script>
+	<script src="http://3.19.175.56:8080/Yamanna/resources/js/isotope.pkgd.min.js"></script>
 	<!-- particles js -->
-	<script src="/resources/js/owl.carousel.min.js"></script>
-	<script src="/resources/js/jquery.nice-select.min.js"></script>
+	<script src="http://3.19.175.56:8080/Yamanna/resources/js/owl.carousel.min.js"></script>
+	<script src="http://3.19.175.56:8080/Yamanna/resources/js/jquery.nice-select.min.js"></script>
 	<!-- custom js -->
-	<script src="/resources/js/custom.js"></script>
+	<script src="http://3.19.175.56:8080/Yamanna/resources/js/custom.js"></script>
 </body>
 </html>

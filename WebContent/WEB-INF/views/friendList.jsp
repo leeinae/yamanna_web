@@ -27,7 +27,7 @@
 <!-- style CSS -->
 <link rel="stylesheet" href="resources/css/style.css" />
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-<link rel="stylesheet" type="text/css" href="/resources/css/modal.css">
+<link rel="stylesheet" type="text/css" href="resources/css/modal.css">
 <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script>
 	function sendForm() {

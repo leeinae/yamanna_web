@@ -83,6 +83,12 @@ public class MemberServiceImpl implements MemberService {
 		int no = memberDao.selectUno(id);
 		return no;
 	}
+
+	@Override
+	public int vaildUserInfo(String id) {
+		int no = memberDao.vaildUserInfo(id);
+		return no;
+	}
 	
 	
 

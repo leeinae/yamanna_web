@@ -63,9 +63,21 @@ public class MemberController {
 	@RequestMapping(value = "/signup", method = RequestMethod.POST)
 	public String signup(MemberVO vo) {
 		System.out.println(vo);
-		service.signUp(vo);
+		service.signUp(vo);			
 		return "redirect:/";
 	}
+	
+	@RequestMapping(value="/check", method=RequestMethod.POST)
+	@ResponseBody
+	public Map<Object, Object> idcheck(@RequestBody String id) {
+		int count = 0;
+		Map<Object, Object> map = new HashMap<Object, Object>();
+		count = service.vaildUserInfo(id);
+		System.out.println("check 호출" + count);
+		map.put("cnt",count);
+		return map;
+	}
+	
 	
 	@RequestMapping(value="/logout", method = RequestMethod.GET)
 	public ModelAndView logout(HttpSession session) {
